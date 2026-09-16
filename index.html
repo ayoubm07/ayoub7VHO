@@ -91,8 +91,61 @@
     <!-- SECTIE 3: THEORIE & UITLEG -->
     <section id="tab-leerstof" class="tab-content">
       <h2 class="section-title">Theorie & Samenvattingen</h2>
-      <div id="theory-container">
-        <!-- Wordt dynamisch opgebouwd via app.js -->
+      
+      <!-- 1. GETALLENVERZAMELINGEN -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h3 style="color: var(--accent); margin-bottom: 0.75rem;">1. Getallenverzamelingen</h3>
+        <p style="color: var(--text-muted); margin-bottom: 0.75rem;">De verschillende groepen waarin we getallen indelen:</p>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
+          <div><strong>ℕ (Natuurlijke getallen):</strong> 0, 1, 2, 3, ... (geen breuken, geen negatieven).</div>
+          <div><strong>ℤ (Gehele getallen):</strong> ... -3, -2, -1, 0, 1, 2, 3 ... (positief en negatief, geen breuken/komma's).</div>
+          <div><strong>ℚ (Rationale getallen):</strong> Elk getal dat als breuk <em>a/b</em> geschreven kan worden (eindige en zuiver/gemengd repeterende getallen, bijv. 0,35 of -4/9).</div>
+          <div><strong>ℝ (Reële getallen):</strong> Alle getallen op de getallenas, inclusief irrationale getallen (zoals π, √2, √10).</div>
+        </div>
+      </div>
+
+      <!-- 2. INTERVAL-NOTATIES -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h3 style="color: var(--accent); margin-bottom: 0.75rem;">2. Intervallen op de Getallenas</h3>
+        <div style="background: rgba(56, 189, 248, 0.1); border-left: 4px solid var(--accent); padding: 0.8rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem;">
+          * Haakjes naar <strong>binnen</strong> <code>[...]</code>: grens <strong>hoort erbij</strong> (gesloten, bolletje ingekleurd, tekens: ≤ of ≥).<br>
+          * Haakjes naar <strong>buiten</strong> <code>]...[</code>: grens <strong>hoort er NIET bij</strong> (open, open bolletje, tekens: &lt; of &gt;).<br>
+          * Oneindig (-∞ of +∞) staat <strong>altijd open</strong>: <code>]-∞, ...[</code> of <code>]..., +∞[</code>.
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
+          <div><strong>2 ≤ x ≤ 7:</strong> <code>[2, 7]</code> (van 2 t/m 7, beide grenzen tellen mee).</div>
+          <div><strong>-1 &lt; x ≤ 5:</strong> <code>]-1, 5]</code> (-1 telt niet mee, 5 wel).</div>
+          <div><strong>x &gt; 3:</strong> <code>]3, +∞[</code> (alles strikt groter dan 3 tot oneindig).</div>
+          <div><strong>x ≤ -2:</strong> <code>]-∞, -2]</code> (alles kleiner dan of gelijk aan -2).</div>
+        </div>
+      </div>
+
+      <!-- 3. PERIODES & DECIMALE VORMEN -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h3 style="color: var(--accent); margin-bottom: 0.75rem;">3. Decimale Vormen & Periodieke Getallen</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.95rem;">
+          <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+            <strong style="color: var(--accent);">Zuiver Repeterend:</strong> de periode begint direct achter de komma.<br>
+            <em>Voorbeeld:</em> 0,242424... (periode is 24, geen niet-repeterend deel). Breukvorm: 24/99.
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+            <strong style="color: var(--accent);">Gemengd Repeterend:</strong> tussen komma en periode staat eerst een niet-repeterend getal.<br>
+            <em>Voorbeeld:</em> 1,281414... (niet-repeterend deel = <strong>28</strong>, periode = <strong>14</strong>).
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. MACHTEN & REKENREGELS -->
+      <div class="card">
+        <h3 style="color: var(--accent); margin-bottom: 0.75rem;">4. Machten & Vierkantswortels</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.95rem;">
+          <div><strong>Gelijke grondtallen vermenigvuldigen:</strong> machten optellen (<em>a³ · a⁴ = a⁷</em>).</div>
+          <div><strong>Gelijke grondtallen delen:</strong> machten aftrekken (<em>a⁵ / a² = a³</em>).</div>
+          <div><strong>Macht van een macht:</strong> machten vermenigvuldigen (<em>(a³)² = a⁶</em>).</div>
+          <div><strong>Nulde macht:</strong> elk getal tot de 0e macht is 1 (<em>a⁰ = 1</em>).</div>
+          <div style="color: #f87171;"><strong>Let op het minteken:</strong> <code>(-3)² = +9</code>, maar <code>-3² = -9</code>.</div>
+          <div><strong>Vierkantswortels:</strong> √64 = 8. √(-64) bestaat niet in ℝ. -√64 = -8.</div>
+        </div>
       </div>
     </section>
 
