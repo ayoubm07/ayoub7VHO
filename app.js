@@ -10,8 +10,23 @@ function switchTab(tabId) {
   if (btn) btn.classList.add('active');
 }
 
-// Doorklikken op een vak
+// Schakelt naar theorie en toont direct het juiste vak
 function openSubject(subjectKey) {
+  switchTab('leerstof');
+  showSubjectTheory(subjectKey);
+}
+
+// Toont het gekozen theorieblok en verbergt de rest
+function showSubjectTheory(subjectKey) {
+  document.querySelectorAll('.theory-block').forEach(el => {
+    el.style.display = 'none';
+  });
+
+  const selected = document.getElementById('theory-' + subjectKey);
+  if (selected) {
+    selected.style.display = 'block';
+  }
+}
   switchTab('leerstof');
   console.log("Vak geopend:", subjectKey);
 }

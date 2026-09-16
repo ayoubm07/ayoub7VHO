@@ -90,19 +90,91 @@
 
     <!-- SECTIE 3: THEORIE & UITLEG -->
     <section id="tab-leerstof" class="tab-content">
-      <h2 class="section-title">Theorie & Samenvattingen</h2>
-      
-      <!-- 1. GETALLENVERZAMELINGEN -->
-      <div class="card" style="margin-bottom: 1.5rem;">
-        <h3 style="color: var(--accent); margin-bottom: 0.75rem;">1. Getallenverzamelingen</h3>
-        <p style="color: var(--text-muted); margin-bottom: 0.75rem;">De verschillende groepen waarin we getallen indelen:</p>
-        <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
-          <div><strong>ℕ (Natuurlijke getallen):</strong> 0, 1, 2, 3, ... (geen breuken, geen negatieven).</div>
-          <div><strong>ℤ (Gehele getallen):</strong> ... -3, -2, -1, 0, 1, 2, 3 ... (positief en negatief, geen breuken/komma's).</div>
-          <div><strong>ℚ (Rationale getallen):</strong> Elk getal dat als breuk <em>a/b</em> geschreven kan worden (eindige en zuiver/gemengd repeterende getallen, bijv. 0,35 of -4/9).</div>
-          <div><strong>ℝ (Reële getallen):</strong> Alle getallen op de getallenas, inclusief irrationale getallen (zoals π, √2, √10).</div>
+      <h2 class="section-title">Theorie per Vak</h2>
+
+      <!-- Knoppenbalk voor alle vakken -->
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+        <button class="btn-primary" onclick="showSubjectTheory('wiskunde')">📐 Wiskunde</button>
+        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('nw')">🧬 Natuurwetenschappen</button>
+        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('engels')">🇬🇧 Engels</button>
+        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('nederlands')">📚 Nederlands</button>
+        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('boekhouding')">📊 Boekhouding</button>
+        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('economie')">💶 Economie</button>
+        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('marketing')">📈 Marketing</button>
+      </div>
+
+      <!-- THEORIE: WISKUNDE -->
+      <div id="theory-wiskunde" class="theory-block card">
+        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📐 Wiskunde: Basis & Bewerkingen</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Overzicht van getallenverzamelingen, intervallen en rekenregels.</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+            <strong>Getallenverzamelingen:</strong> ℕ (natuurlijk), ℤ (geheel), ℚ (rationaal / breuken & periodes), ℝ (reëel incl. wortels en π).
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+            <strong>Intervallen:</strong> <code>[a, b]</code> = grenzen tellen mee (&le;, &ge;). <code>]a, b[</code> = grenzen tellen niet mee (&lt;, &gt;). Oneindig staat altijd open: <code>]-&infin;, 3]</code>.
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+            <strong>Machten & Tekens:</strong> <code>(-3)&sup2; = 9</code>, maar <code>-3&sup2; = -9</code>. &radic;(-64) bestaat niet in ℝ.
+          </div>
         </div>
       </div>
+
+      <!-- THEORIE: NATUURWETENSCHAPPEN -->
+      <div id="theory-nw" class="theory-block card" style="display: none;">
+        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🧬 Natuurwetenschappen: Genetica</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Erfelijkheidsleer, stambomen en kruisingstabellen.</p>
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+          <strong>Genotype vs. Fenotype:</strong> Genotype is de genetische code (bijv. Aa of BB), fenotype is het zichtbare kenmerk (bijv. oogkleur).
+        </div>
+      </div>
+
+      <!-- THEORIE: ENGELS -->
+      <div id="theory-engels" class="theory-block card" style="display: none;">
+        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🇬🇧 Engels: Grammatica</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Conditionals en werkwoordstijden.</p>
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+          <strong>Second Conditional:</strong> <em>If + past simple, ... would + infinitive</em> (bijv. If I had time, I would study).
+        </div>
+      </div>
+
+      <!-- THEORIE: NEDERLANDS -->
+      <div id="theory-nederlands" class="theory-block card" style="display: none;">
+        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📚 Nederlands: Zakelijke Communicatie</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Tekststructuren en formuleringen.</p>
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+          Inleiding (doel), kern (argumenten/feiten) en slot (conclusie/actie).
+        </div>
+      </div>
+
+      <!-- THEORIE: BOEKHOUDING -->
+      <div id="theory-boekhouding" class="theory-block card" style="display: none;">
+        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📊 Boekhouding</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Balans en journaalposten.</p>
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+          Activa (bezittingen links) = Passiva (schulden en eigen vermogen rechts).
+        </div>
+      </div>
+
+      <!-- THEORIE: ECONOMIE -->
+      <div id="theory-economie" class="theory-block card" style="display: none;">
+        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">💶 Economie</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Marktmechanismen en prijsvorming.</p>
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+          Vraag en aanbod bepalen de evenwichtsprijs en -hoeveelheid.
+        </div>
+      </div>
+
+      <!-- THEORIE: MARKETING -->
+      <div id="theory-marketing" class="theory-block card" style="display: none;">
+        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📈 Marketing</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Marketingmix en verkoopstrategieën.</p>
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+          De 4 P's: Product, Prijs, Plaats, Promotie.
+        </div>
+      </div>
+    </section>
 
       <!-- 2. INTERVAL-NOTATIES -->
       <div class="card" style="margin-bottom: 1.5rem;">
