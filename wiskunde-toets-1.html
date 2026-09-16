@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toets Wiskunde: Les 1 en 2 - Oefenapp</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --success: #22c55e;
+      --error: #ef4444;
+      --hint: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 14px;
+    }
+
+    .quiz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 680px;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+
+    .title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #60a5fa;
+    }
+
+    .badge {
+      background: #1e3a8a;
+      color: #bfdbfe;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .q-meta {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .q-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.45;
+      margin-bottom: 20px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .opt-btn {
+      padding: 14px 18px;
+      background: #0f172a;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      border-color: #60a5fa;
+      background: #1e293b;
+    }
+
+    .opt-btn.correct {
+      border-color: var(--success);
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      font-weight: 700;
+    }
+
+    .opt-btn.wrong {
+      border-color: var(--error);
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      font-weight: 700;
+    }
+
+    .hint-panel {
+      display: none;
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 4px solid var(--hint);
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      color: #fcd34d;
+      font-size: 0.9rem;
+    }
+
+    .expl-panel {
+      display: none;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .expl-panel.correct {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid var(--success);
+      color: #86efac;
+    }
+
+    .expl-panel.wrong {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid var(--error);
+      color: #fca5a5;
+    }
+
+    .footer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .action-btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-hint {
+      background: #334155;
+      color: #f8fafc;
+    }
+
+    .btn-hint:hover {
+      background: #475569;
+    }
+
+    .btn-next {
+      background: var(--primary);
+      color: white;
+      display: none;
+    }
+
+    .btn-next:hover {
+      background: var(--primary-hover);
+    }
+
+    .watermark {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #64748b;
+    }
+
+    .end-screen {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .score-big {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #60a5fa;
+      margin: 16px 0;
+    }
+
+    .emoji-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .emoji-btn {
+      font-size: 2.2rem;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .emoji-btn:hover {
+      transform: scale(1.15);
+      border-color: #60a5fa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-card">
+    <div class="header-bar">
+      <div class="title">Toets Wiskunde: Les 1 en 2</div>
+      <div class="badge" id="scoreTrack">Score: 0 / 30</div>
+    </div>
+
+    <div class="progress-bar-wrap" id="progWrap">
+      <div class="progress-bar" id="pBar"></div>
+    </div>
+
+    <!-- Quiz Vraag -->
+    <div id="quizContent">
+      <div class="q-meta" id="qNum">Vraag 1 van 30</div>
+      <div class="q-text" id="qTitle">Vraagtekst</div>
+
+      <div class="options" id="optContainer"></div>
+
+      <div class="hint-panel" id="hintPanel"></div>
+      <div class="expl-panel" id="explPanel"></div>
+
+      <div class="footer-actions">
+        <button class="action-btn btn-hint" id="hintBtn" onclick="toggleHint()">💡 Hint</button>
+        <button class="action-btn btn-next" id="nextBtn" onclick="nextQ()">Volgende Vraag →</button>
+      </div>
+    </div>
+
+    <!-- Eindresultaat -->
+    <div class="end-screen" id="endScreen">
+      <h2>Toets Afgerond!</h2>
+      <p style="color: var(--text-muted); margin-top: 6px;">Jouw eindresultaat op 30 punten:</p>
+      <div class="score-big" id="scoreVal">0 / 30</div>
+      <p id="feedbackText" style="margin-bottom: 24px; font-weight: 600;"></p>
+
+      <button class="action-btn btn-hint" onclick="restart()">Opnieuw oefenen</button>
+
+      <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">
+        <p style="font-size: 0.95rem; color: var(--text-muted);">Hoe voelde deze oefening voor donderdag?</p>
+        <div class="emoji-row">
+          <button class="emoji-btn" onclick="rate('Klaar voor een 10/10! 🔥')">🔥</button>
+          <button class="emoji-btn" onclick="rate('Ging goed! 👍')">👍</button>
+          <button class="emoji-btn" onclick="rate('Nog even herhalen 😐')">😐</button>
+          <button class="emoji-btn" onclick="rate('Was pittig! 🤯')">🤯</button>
+        </div>
+        <p id="emojiResponse" style="margin-top: 12px; font-weight: 700; color: #60a5fa;"></p>
+      </div>
+    </div>
+
+    <div class="watermark">Ayoub 7VHO</div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        q: "Behoort √49 tot de verzameling Q (de rationale getallen)?",
+        opts: ["Ja, want √49 = 7", "Nee, want het is een wortel", "Nee, want 7 is irrationaal", "Alleen als breuk"],
+        ans: 0,
+        hint: "Reken √49 eerst uit. Is de uitkomst een geheel getal?",
+        expl: "√49 is 7. Omdat 7 geschreven kan worden als 7/1, is het een rationaal getal (7 ∈ Q)."
+      },
+      {
+        q: "Behoort het getal π (pi) tot de rationale getallen (Q)?",
+        opts: ["Ja, want π = 3,14", "Nee, want π is een irrationaal getal", "Ja, want π = 22/7", "Alleen bij cirkelberekeningen"],
+        ans: 1,
+        hint: "Heeft π een repeterende periode achter de komma?",
+        expl: "π heeft een oneindig niet-repeterende decimale vorm en kan nooit als breuk geschreven worden. Dus π ∉ Q."
+      },
+      {
+        q: "Bestaat het getal √(-16) in de verzameling van de reële getallen (R)?",
+        opts: ["Ja, het is -4", "Ja, het is +4", "Nee, een kwadraat is in R nooit negatief", "Ja, als breuk"],
+        ans: 2,
+        hint: "Bestaat er een reëel getal dat vermenigvuldigd met zichzelf -16 oplevert?",
+        expl: "In R bestaat de vierkantswortel van een negatief getal niet, omdat een kwadraat altijd positief of nul is."
+      },
+      {
+        q: "Hoeveel vierkantswortels heeft het strikt positieve getal 64?",
+        opts: ["1", "2 (namelijk 8 en -8)", "Geen", "Oneindig"],
+        ans: 1,
+        hint: "De vraag in woorden vraagt naar élk getal waarvan het kwadraat 64 is.",
+        expl: "Elk positief getal heeft precies 2 vierkantswortels: een positieve (+8) en een negatieve (-8), want 8² = 64 en (-8)² = 64."
+      },
+      {
+        q: "Bereken: √100",
+        opts: ["10", "-10", "10 en -10", "Niet mogelijk"],
+        ans: 0,
+        hint: "Het symbool √ vraagt per definitie om de positieve hoofdwortel.",
+        expl: "Het symbool √a levert altijd de positieve wortel op: √100 = 10."
+      },
+      {
+        q: "Bereken: -√121",
+        opts: ["11", "-11", "Niet mogelijk in R", "12,1"],
+        ans: 1,
+        hint: "Bereken eerst √121 en plaats het minteken ervoor.",
+        expl: "√121 = 11. Omdat er een min vóór het wortelteken staat, is de uitkomst -11."
+      },
+      {
+        q: "Bereken: √(-81)",
+        opts: ["-9", "9", "Niet mogelijk in R", "-8,1"],
+        ans: 2,
+        hint: "Let op de plaats van het minteken: het staat binnenin de wortel!",
+        expl: "Een minteken onder een vierkantswortel kan niet in R. Dus: niet mogelijk."
+      },
+      {
+        q: "Bereken: -√0,25",
+        opts: ["-0,5", "0,5", "-0,05", "Niet mogelijk"],
+        ans: 0,
+        hint: "0,5 · 0,5 = 0,25. Vergeet de min vóór de wortel niet.",
+        expl: "√0,25 = 0,5. Met de min ervoor wordt dit -0,5."
+      },
+      {
+        q: "Bereken: √(49/144)",
+        opts: ["7/12", "7/14", "14/24", "Niet mogelijk"],
+        ans: 0,
+        hint: "Neem de wortel van de teller (√49) en van de noemer (√144).",
+        expl: "√(49/144) = √49 / √144 = 7/12."
+      },
+      {
+        q: "Bereken: √1,44",
+        opts: ["12", "1,2", "0,12", "1,44"],
+        ans: 1,
+        hint: "Denk aan 12² = 144.",
+        expl: "1,2 · 1,2 = 1,44, dus √1,44 = 1,2."
+      },
+      {
+        q: "Bereken: √(-9/16)",
+        opts: ["-3/4", "3/4", "Niet mogelijk in R", "-0,75"],
+        ans: 2,
+        hint: "Kijk goed waar het minteken staat.",
+        expl: "Het minteken staat onder de wortel. Dit is niet mogelijk in R."
+      },
+      {
+        q: "Bereken: -√(1/64)",
+        opts: ["1/8", "-1/8", "-1/32", "Niet mogelijk"],
+        ans: 1,
+        hint: "√1 = 1 en √64 = 8. Pas de min toe.",
+        expl: "√(1/64) = 1/8. Met het minteken ervoor: -1/8."
+      },
+      {
+        q: "Wat is het niet-repeterende deel van 3,4555...?",
+        opts: ["3", "4", "5", "Er is er geen"],
+        ans: 1,
+        hint: "Welk cijfer achter de komma herhaalt zich NIET?",
+        expl: "Achter de komma staat '4' éénmalig en '5' herhaalt zich. Het niet-repeterend deel is 4."
+      },
+      {
+        q: "Wat is de periode van 1,281414...?",
+        opts: ["28", "14", "814", "41"],
+        ans: 1,
+        hint: "Welke groep cijfers herhaalt zich steeds?",
+        expl: "Het groepje '14' blijft zich herhalen, dus de periode is 14. (Het niet-repeterend deel is 28)."
+      },
+      {
+        q: "Is het getal 0,242424... rationaal of irrationaal?",
+        opts: ["Rationaal, want het heeft een periode (24)", "Irrationaal, want het loopt oneindig door", "Geen van beide", "Een geheel getal"],
+        ans: 0,
+        hint: "Kan elk oneindig repeterend getal als breuk geschreven worden?",
+        expl: "Getallen met een repeterende periode kunnen als breuk geschreven worden (0,2424... = 24/99) en behoren dus tot Q."
+      },
+      {
+        q: "Schrijf 0,35 als een zo ver mogelijk vereenvoudigde breuk.",
+        opts: ["35/100", "7/20", "3/5", "7/50"],
+        ans: 1,
+        hint: "35/100 kun je in teller en noemer delen door 5.",
+        expl: "0,35 = 35/100. Deel teller en noemer door 5: 35:5 / 100:5 = 7/20."
+      },
+      {
+        q: "Schrijf -0,016 als een onvereenvoudigbare breuk.",
+        opts: ["-16/100", "-2/125", "-4/250", "2/125"],
+        ans: 1,
+        hint: "-16/1000: deel teller en noemer door 8.",
+        expl: "-0,016 = -16/1000. Deel door 8: -16:8 / 1000:8 = -2/125. Let op het minteken!"
+      },
+      {
+        q: "Geef de decimale vorm van 7/20.",
+        opts: ["0,35", "0,7", "0,28", "0,355..."],
+        ans: 0,
+        hint: "Maak van de noemer 100 door met 5 te vermenigvuldigen.",
+        expl: "7/20 = 35/100 = 0,35."
+      },
+      {
+        q: "Geef de decimale vorm van -4/9.",
+        opts: ["-0,4", "-0,444...", "0,444...", "-0,49"],
+        ans: 1,
+        hint: "Een noemer met een 9 geeft een oneindig repeterend getal.",
+        expl: "-4 gedeeld door 9 is -0,444... (oneindig repeterend met periode 4)."
+      },
+      {
+        q: "Rond -29/7 (-4,142857...) af op 1 (op een geheel getal).",
+        opts: ["-4", "-5", "-4,1", "-4,14"],
+        ans: 0,
+        hint: "Afronden op 1 betekent géén cijfers achter de komma.",
+        expl: "Het eerste cijfer na de komma is een 1 (< 5), dus we ronden naar beneden af: -4."
+      },
+      {
+        q: "Rond -29/7 (-4,142857...) af op 0,001 (duizendsten).",
+        opts: ["-4,142", "-4,143", "-4,1428", "-4,140"],
+        ans: 1,
+        hint: "Kijk naar het vierde cijfer na de komma: dat is een 8 (≥ 5).",
+        expl: "Drie decimalen is -4,142. Omdat het 4e cijfer een 8 is, wordt de 2 met één verhoogd: -4,143."
+      },
+      {
+        q: "Vul in: √15 ... 4",
+        opts: ["<", ">", "="],
+        ans: 0,
+        hint: "Zet 4 onder een wortel: 4 = √16.",
+        expl: "Omdat 15 < 16, geldt √15 < √16, dus √15 < 4."
+      },
+      {
+        q: "Vul in: √(8/18) ... 2/3",
+        opts: ["<", ">", "="],
+        ans: 2,
+        hint: "Vereenvoudig eerst 8/18 door te delen door 2.",
+        expl: "8/18 = 4/9. De wortel daarvan is √(4/9) = 2/3. Beide zijden zijn dus gelijk (=)."
+      },
+      {
+        q: "Vul in: -3 ... -√10",
+        opts: ["<", ">", "="],
+        ans: 1,
+        hint: "-3 is gelijk aan -√9. Welk negatief getal ligt dichter bij 0?",
+        expl: "3 = √9, en √9 < √10. Bij negatieve getallen keert het teken om: -√9 > -√10, dus -3 > -√10."
+      },
+      {
+        q: "Vul in: -√36 ... -5",
+        opts: ["<", ">", "="],
+        ans: 0,
+        hint: "-√36 is gelijk aan -6.",
+        expl: "-√36 = -6. -6 ligt meer naar links op de getallenas dan -5, dus -6 < -5."
+      },
+      {
+        q: "In een klas van 25 zitten 10 jongens. Wat is het percentage MEISJES in de klas?",
+        opts: ["40%", "60%", "15%", "50%"],
+        ans: 1,
+        hint: "Aantal meisjes = 25 - 10 = 15.",
+        expl: "Er zijn 15 meisjes op 25 leerlingen: 15/25 = 3/5 = 0,60 = 60%."
+      },
+      {
+        q: "Van de 10 jongens in die klas dragen 3 een beugel. Hoeveel procent van de JONGENS is dat?",
+        opts: ["12%", "25%", "30%", "33,3%"],
+        ans: 2,
+        hint: "Deel 3 door het aantal jongens (10), niet door de hele klas!",
+        expl: "De verhouding t.o.v. de jongens is 3 op 10: 3/10 = 0,30 = 30%."
+      },
+      {
+        q: "In diezelfde klas van 25 hebben 12 leerlingen blond haar. Welk percentage heeft GEEN blond haar?",
+        opts: ["48%", "52%", "13%", "60%"],
+        ans: 1,
+        hint: "25 - 12 = 13 leerlingen zonder blond haar.",
+        expl: "13 leerlingen van de 25 hebben geen blond haar: 13/25 = 52/100 = 52%."
+      },
+      {
+        q: "Een vierkant heeft een oppervlakte van 80 m². Wat is de zijde afgerond op 1 dm (0,1 m)?",
+        opts: ["8,9 m", "9,0 m", "89 m", "8,94 m"],
+        ans: 0,
+        hint: "Zijde = √80 ≈ 8,944 m.",
+        expl: "Zijde = √80 ≈ 8,9442... m. Afgerond op 1 decimaal (1 dm) geeft dit 8,9 m."
+      },
+      {
+        q: "Welk van de volgende irrationale getallen ligt strikt tussen 3 en 4?",
+        opts: ["√8", "√10", "√16", "3,5"],
+        ans: 1,
+        hint: "3 = √9 en 4 = √16. Zoek een niet-kwadraatgetal tussen 9 en 16.",
+        expl: "√9 = 3 en √16 = 4. √10 ligt tussen √9 en √16 en is irrationaal (omdat 10 geen volkomen kwadraat is). (3,5 is rationaal)."
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+    let locked = false;
+
+    function renderQ() {
+      locked = false;
+      const data = quizData[current];
+
+      document.getElementById('qNum').innerText = `Vraag ${current + 1} van ${quizData.length}`;
+      document.getElementById('qTitle').innerText = data.q;
+      document.getElementById('pBar').style.width = `${(current / quizData.length) * 100}%`;
+
+      const optBox = document.getElementById('optContainer');
+      optBox.innerHTML = '';
+
+      data.opts.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'opt-btn';
+        btn.innerText = optText;
+        btn.onclick = () => checkAns(idx);
+        optBox.appendChild(btn);
+      });
+
+      document.getElementById('hintPanel').style.display = 'none';
+      document.getElementById('hintPanel').innerText = data.hint;
+      document.getElementById('hintBtn').style.display = 'inline-block';
+
+      document.getElementById('explPanel').style.display = 'none';
+      document.getElementById('nextBtn').style.display = 'none';
+    }
+
+    function toggleHint() {
+      document.getElementById('hintPanel').style.display = 'block';
+      document.getElementById('hintBtn').style.display = 'none';
+    }
+
+    function checkAns(picked) {
+      if (locked) return;
+      locked = true;
+
+      const data = quizData[current];
+      const buttons = document.querySelectorAll('.opt-btn');
+      const expl = document.getElementById('explPanel');
+
+      buttons.forEach(b => b.disabled = true);
+
+      if (picked === data.ans) {
+        score++;
+        buttons[picked].classList.add('correct');
+        expl.className = 'expl-panel correct';
+        expl.innerHTML = `<strong>Uitstekend!</strong><br>${data.expl}`;
+      } else {
+        buttons[picked].classList.add('wrong');
+        buttons[data.ans].classList.add('correct');
+        expl.className = 'expl-panel wrong';
+        expl.innerHTML = `<strong>Aandachtspunt:</strong><br>${data.expl}`;
+      }
+
+      document.getElementById('scoreTrack').innerText = `Score: ${score} / ${quizData.length}`;
+      expl.style.display = 'block';
+      document.getElementById('nextBtn').style.display = 'inline-block';
+    }
+
+    function nextQ() {
+      current++;
+      if (current < quizData.length) {
+        renderQ();
+      } else {
+        finish();
+      }
+    }
+
+    function finish() {
+      document.getElementById('quizContent').style.display = 'none';
+      document.getElementById('progWrap').style.display = 'none';
+      document.getElementById('endScreen').style.display = 'block';
+
+      document.getElementById('scoreVal').innerText = `${score} / ${quizData.length}`;
+
+      let msg = "";
+      if (score >= 27) {
+        msg = "Geweldig gewerkt! Jij bent 100% klaar om donderdag te vlammen! 🔥";
+      } else if (score >= 22) {
+        msg = "Prima score! Bekijk je gemaakte foutjes nog een keer goed. 👍";
+      } else if (score >= 15) {
+        msg = "Voldoende, maar herhaal de theorie rond mintekens en wortels nog even. 📖";
+      } else {
+        msg = "Nog even goed oefenen vandaag en morgen met de samenvatting erbij! ⚠️";
+      }
+      document.getElementById('feedbackText').innerText = msg;
+    }
+
+    function rate(fb) {
+      document.getElementById('emojiResponse').innerText = `Opgeslagen: "${fb}" - Succes donderdag!`;
+    }
+
+    function restart() {
+      current = 0;
+      score = 0;
+      document.getElementById('scoreTrack').innerText = `Score: 0 / ${quizData.length}`;
+      document.getElementById('endScreen').style.display = 'none';
+      document.getElementById('quizContent').style.display = 'block';
+      document.getElementById('progWrap').style.display = 'block';
+      document.getElementById('emojiResponse').innerText = '';
+      renderQ();
+    }
+
+    renderQ();
+  </script>
+</body>
+</html>
+
