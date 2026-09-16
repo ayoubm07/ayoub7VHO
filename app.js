@@ -1,25 +1,32 @@
-// Navigatie tussen secties
+/// Centrale tabnavigatie
 function switchTab(tabId) {
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  // Verwijder active klasse op alle knoppen en secties
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(section => section.classList.remove('active'));
 
-  const content = document.getElementById('tab-' + tabId);
-  if (content) content.classList.add('active');
+  // Activeer gekozen sectie
+  const targetSection = document.getElementById('tab-' + tabId);
+  if (targetSection) {
+    targetSection.classList.add('active');
+  }
 
-  const btn = document.querySelector(`.nav-btn[onclick*="${tabId}"]`);
-  if (btn) btn.classList.add('active');
+  // Activeer bijbehorende menuknop bovenaan
+  const targetBtn = document.querySelector(`.nav-btn[onclick*="${tabId}"]`);
+  if (targetBtn) {
+    targetBtn.classList.add('active');
+  }
 }
 
-// Schakelt naar theorie en toont direct het juiste vak
+// Doorklikken vanaf de homepage naar een specifiek vak
 function openSubject(subjectKey) {
   switchTab('leerstof');
   showSubjectTheory(subjectKey);
 }
 
-// Toont het gekozen theorieblok en verbergt de rest
+// Toon alleen het geselecteerde theorieblok
 function showSubjectTheory(subjectKey) {
-  document.querySelectorAll('.theory-block').forEach(el => {
-    el.style.display = 'none';
+  document.querySelectorAll('.theory-block').forEach(block => {
+    block.style.display = 'none';
   });
 
   const selected = document.getElementById('theory-' + subjectKey);
@@ -27,18 +34,17 @@ function showSubjectTheory(subjectKey) {
     selected.style.display = 'block';
   }
 }
-  switchTab('leerstof');
-  console.log("Vak geopend:", subjectKey);
-}
 
-// Examenrooster opslag
+// Examenrooster opslag (LocalStorage)
 let exams = JSON.parse(localStorage.getItem('ayoub_exams') || '[]');
 
 const examForm = document.getElementById('examForm');
 const examList = document.getElementById('examList');
 
 function renderExams() {
+  if (!examList) return;
   examList.innerHTML = '';
+
   if (exams.length === 0) {
     examList.innerHTML = '<p style="color: var(--text-muted);">Nog geen examens ingepland.</p>';
     return;
