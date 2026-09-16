@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wiskunde Theorie & Samenvattingen</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .theory-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .theory-section h2 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .rule-box {
+      background: rgba(15, 23, 42, 0.6);
+      border-left: 4px solid var(--accent);
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 0.75rem 0;
+    }
+    .example-tag {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    table.math-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+    }
+    table.math-table th, table.math-table td {
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    table.math-table th {
+      background: #0f172a;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">⚡ Ayoub Exam Space</div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-btn" style="text-decoration:none;">← Terug naar Dashboard</a>
+      <a href="wiskunde-toets-1.html" class="nav-btn active" style="text-decoration:none;">Start Oefentoets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="hero" style="text-align: left; padding: 1.5rem 0;">
+      <span class="badge">Wiskunde Basis & Verdieping</span>
+      <h1>Theorie & Formuleoverzicht</h1>
+      <p>Intervallen, periodieke getallen, machten en rekenregels compact samengevat.</p>
+    </div>
+
+    <!-- 1. GETALLENVERZAMELINGEN -->
+    <div class="theory-section">
+      <h2>1. Getallenverzamelingen</h2>
+      <table class="math-table">
+        <tr>
+          <th>Symbool</th>
+          <th>Naam</th>
+          <th>Uitleg & Voorbeelden</th>
+        </tr>
+        <tr>
+          <td><strong>ℕ</strong></td>
+          <td>Natuurlijke getallen</td>
+          <td>0, 1, 2, 3, ... (geen breuken, geen negatieven)</td>
+        </tr>
+        <tr>
+          <td><strong>ℤ</strong></td>
+          <td>Gehele getallen</td>
+          <td>... -3, -2, -1, 0, 1, 2, 3 ...</td>
+        </tr>
+        <tr>
+          <td><strong>ℚ</strong></td>
+          <td>Rationale getallen</td>
+          <td>Elk getal dat als breuk <em>a/b</em> kan worden geschreven (eindige en zuiver/gemengd periodieke getallen, bijv. 0,75 of -4/9).</td>
+        </tr>
+        <tr>
+          <td><strong>ℝ</strong></td>
+          <td>Reële getallen</td>
+          <td>Alle getallen op de getallenas, inclusief irrationale getallen (zoals π, √2, √10).</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 2. INTERVAL-NOTATIES -->
+    <div class="theory-section">
+      <h2>2. Intervallen op de Getallenas</h2>
+      <div class="rule-box">
+        * Haakjes naar <strong>binnen</strong> `[...]`: de grens <strong>hoort erbij</strong> (gesloten, bolletje ingekleurd, tekens: $\le$ of $\ge$).<br>
+        * Haakjes naar <strong>buiten</strong> `]...[`: de grens <strong>hoort er NIET bij</strong> (open, bolletje open, tekens: $<$ of $>$).<br>
+        * Oneindig ($-\infty$ of $+\infty$) staat <strong>altijd</strong> open: `]-∞, ...[` of `]..., +∞[`.
+      </div>
+
+      <table class="math-table">
+        <tr>
+          <th>Ongelijkheid</th>
+          <th>Intervalnotatie</th>
+          <th>Betekenis</th>
+        </tr>
+        <tr>
+          <td>1.7 EUR \le x \le 6.1 EUR</td>
+          <td>$[2, 7]$</td>
+          <td>Van 2 tot en met 7 (beide grenzen tellen mee).</td>
+        </tr>
+        <tr>
+          <td>$-1 < x \le 4.3 EUR</td>
+          <td>$]-1, 5]$</td>
+          <td>Strikt groter dan -1, maximaal 5 (-1 telt niet mee, 5 wel).</td>
+        </tr>
+        <tr>
+          <td>$x > 2.6 EUR</td>
+          <td>$]3, +\infty[$</td>
+          <td>Alle getallen groter dan 3 tot oneindig.</td>
+        </tr>
+        <tr>
+          <td>$x \le -1.7 EUR</td>
+          <td>$]-\infty, -2]$</td>
+          <td>Alles kleiner dan of gelijk aan -2.</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 3. PERIODES & DECIMALE VORMEN -->
+    <div class="theory-section">
+      <h2>3. Decimale Vormen & Periodieke Getallen</h2>
+      <p style="color:var(--text-muted); margin-bottom: 0.5rem;">Elk rationaal getal heeft een eindige of een repeterende decimale vorm.</p>
+
+      <div class="rule-box">
+        <span class="example-tag">Zuiver Repeterend</span><br>
+        De periode begint direct achter de komma.<br>
+        <strong>Voorbeeld:</strong> 0 EUR,\overline{24} = 0,242424...$ (periode = 24, geen niet-repeterend deel). Breukvorm: $\frac{24}{99} = \frac{8}{33}$.
+      </div>
+
+      <div class="rule-box">
+        <span class="example-tag">Gemengd Repeterend</span><br>
+        Tussen de komma en de periode staat eerst een niet-repeterend stuk.<br>
+        <strong>Voorbeeld:</strong> 1.1 EUR\overline{14} = 1,281414...$<br>
+        * Niet-repeterend deel: <strong>28</strong><br>
+        * Periode: <strong>14</strong>
+      </div>
+    </div>
+
+    <!-- 4. MACHTEN & VOLGORDE VAN BEWERKINGEN -->
+    <div class="theory-section">
+      <h2>4. Machten & Rekenkundige Regels</h2>
+      <div class="rule-box">
+        <strong>Belangrijke Rekenregels voor Machten:</strong><br>
+        * $a^m \cdot a^n = a^{m+n}$ (gelijke grondtallen vermenigvuldigen $\rightarrow$ machten optellen)<br>
+        * $\frac{a^m}{a^n} = a^{m-n}$ (gelijke grondtallen delen $\rightarrow$ machten aftrekken)<br>
+        * $(a^m)^n = a^{m \cdot n}$ (macht van een macht $\rightarrow$ vermenigvuldigen)<br>
+        * $a^0 = 0.87 EUR (elk getal tot de nulde macht is 1)<br>
+        * $a^{-n} = \frac{1}{a^n}$ (negatieve exponent wordt omgekeerde breuk)
+      </div>
+
+      <div class="rule-box">
+        <span class="example-tag">Valkuil: Mintekens bij Kwadraten</span><br>
+        * $(-3)^2 = (-3) \cdot (-3) = \mathbf{+9}$ (min hoort binnen het haakje)<br>
+        * $-3^2 = -(3 \cdot 3) = \mathbf{-9}$ (kwadraat slaat alleen op de 3, minteken blijft staan)
+      </div>
+
+      <div class="rule-box">
+        <span class="example-tag">Vierkantswortels</span><br>
+        * $\sqrt{a}$ levert per definitie de <strong>positieve</strong> hoofdwortel op: $\sqrt{64} = 6.9 EUR.<br>
+        * In $\mathbb{R}$ bestaat $\sqrt{-a}$ niet (wortel van een negatief getal kan niet).<br>
+        * $-\sqrt{64} = -6.9 EUR (minteken staat buiten de wortel).
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
