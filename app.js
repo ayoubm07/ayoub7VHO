@@ -1,43 +1,61 @@
-/// Centrale tabnavigatie
-function switchTab(tabId) {
-  // Verwijder active klasse op alle knoppen en secties
-  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(section => section.classList.remove('active'));
+// 1. Zorg dat bij het laden van de pagina alleen 'home' zichtbaar is
+document.addEventListener("DOMContentLoaded", () => {
+  switchTab('home'); 
+});
 
-  // Activeer gekozen sectie
+// 2. De onbreekbare tab-wisselaar
+function switchTab(tabId) {
+  // Verberg ALLE secties keihard
+  const allSections = document.querySelectorAll('.tab-content');
+  allSections.forEach(sec => {
+    sec.style.display = 'none';
+    sec.classList.remove('active');
+  });
+
+  // Toon ALLEEN de gekozen sectie
   const targetSection = document.getElementById('tab-' + tabId);
   if (targetSection) {
+    targetSection.style.display = 'block';
     targetSection.classList.add('active');
   }
 
-  // Activeer bijbehorende menuknop bovenaan
-  const targetBtn = document.querySelector(`.nav-btn[onclick*="${tabId}"]`);
-  if (targetBtn) {
-    targetBtn.classList.add('active');
-  }
+  // Zet de knoppen in het menu goed
+  const allNavBtns = document.querySelectorAll('.nav-btn');
+  allNavBtns.forEach(btn => btn.classList.remove('active'));
+  
+  allNavBtns.forEach(btn => {
+    if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(tabId)) {
+      btn.classList.add('active');
+    }
+  });
+
+  // Scroll netjes terug naar boven als je wisselt
+  window.scrollTo(0, 0);
 }
 
-// Doorklikken vanaf de homepage naar een specifiek vak
+// 3. Doorklikken naar specifiek vak
 function openSubject(subjectKey) {
   switchTab('leerstof');
   showSubjectTheory(subjectKey);
 }
 
-// Toon alleen het geselecteerde theorieblok
+// 4. Toon theorie per vak
 function showSubjectTheory(subjectKey) {
-  document.querySelectorAll('.theory-block').forEach(block => {
+  // Verberg alle theorieblokken
+  const blocks = document.querySelectorAll('.theory-block');
+  blocks.forEach(block => {
     block.style.display = 'none';
   });
 
+  // Toon alleen het juiste theorieblok
   const selected = document.getElementById('theory-' + subjectKey);
   if (selected) {
     selected.style.display = 'block';
   }
 }
 
-// Examenrooster opslag (LocalStorage)
+// 5. Examenrooster opslag (LocalStorage)
 let exams = JSON.parse(localStorage.getItem('ayoub_exams') || '[]');
-
 const examForm = document.getElementById('examForm');
 const examList = document.getElementById('examList');
 
