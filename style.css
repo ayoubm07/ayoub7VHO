@@ -195,3 +195,16 @@ input:focus {
   flex-direction: column;
   gap: 0.75rem;
 }
+
+/* Zorg dat tabbladen en theorieblokken standaard onzichtbaar zijn */
+.tab-content {
+  display: none !important;
+}
+
+.tab-content.active {
+  display: block !important;
+}
+
+.theory-block {
+  display: none;
+}
