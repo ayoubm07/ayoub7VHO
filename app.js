@@ -105,3 +105,18 @@ if (examForm) {
 }
 
 renderExams();
+
+// Toon specifiek hoofdstuk binnen een theorieblok
+function showChapter(subject, chapterNum) {
+  // 1. Verberg eerst alle hoofdstukken van dit vak
+  const chapters = document.querySelectorAll(`.${subject}-chapter`);
+  chapters.forEach(ch => {
+    ch.style.display = 'none';
+  });
+
+  // 2. Toon alleen het hoofdstuk waarop geklikt is
+  const selectedChapter = document.getElementById(`${subject}-h${chapterNum}`);
+  if (selectedChapter) {
+    selectedChapter.style.display = 'block';
+  }
+}

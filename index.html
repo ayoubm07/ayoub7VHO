@@ -110,28 +110,79 @@
         <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('marketing')">📈 Marketing</button>
       </div>
 
-      <!-- THEORIE BLOKKEN -->
+      <!-- THEORIE: WISKUNDE -->
       <div id="theory-wiskunde" class="theory-block card">
         <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📐 Wiskunde: Basis & Bewerkingen</h3>
-        <p style="color: var(--text-muted); margin-bottom: 1rem;">Overzicht van getallenverzamelingen, intervallen en rekenregels.</p>
-        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-          <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-            <strong>Getallenverzamelingen:</strong> ℕ (natuurlijk), ℤ (geheel), ℚ (rationaal), ℝ (reëel).
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Kies een hoofdstuk om de theorie in te zien:</p>
+        
+        <!-- Hoofdstuk Knoppen -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+          <button class="btn-primary" style="background:#334155; padding: 0.5rem 1rem;" onclick="showChapter('wiskunde', 1)">📖 H1: Getallen & Intervallen</button>
+          <button class="btn-primary" style="background:#334155; padding: 0.5rem 1rem;" onclick="showChapter('wiskunde', 2)">📖 H2: Decimale Vormen</button>
+          <button class="btn-primary" style="background:#334155; padding: 0.5rem 1rem;" onclick="showChapter('wiskunde', 3)">📖 H3: Rekenregels & Machten</button>
+        </div>
+
+        <!-- Hoofdstuk 1 -->
+        <div id="wiskunde-h1" class="wiskunde-chapter" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+          <h4 style="color: #60a5fa; margin-bottom: 0.75rem;">Hoofdstuk 1: Getallenverzamelingen & Intervallen</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+              <strong>Getallenverzamelingen:</strong><br>
+              • <strong>ℕ (natuurlijk):</strong> 0, 1, 2, 3...<br>
+              • <strong>ℤ (geheel):</strong> ..., -2, -1, 0, 1, 2...<br>
+              • <strong>ℚ (rationaal):</strong> Breuken en periodieke getallen.<br>
+              • <strong>ℝ (reëel):</strong> Alles, inclusief wortels en π.
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+              <strong>Intervallen:</strong><br>
+              <code>[a, b]</code> telt mee (≤, ≥).<br>
+              <code>]a, b[</code> telt niet mee (&lt;, &gt;).<br>
+              Oneindig is altijd open: <code>]-∞, 3]</code>.
+            </div>
           </div>
-          <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-            <strong>Intervallen:</strong> <code>[a, b]</code> telt mee (&le;, &ge;). <code>]a, b[</code> telt niet mee (&lt;, &gt;). Oneindig staat altijd open: <code>]-&infin;, 3]</code>.
+        </div>
+
+        <!-- Hoofdstuk 2 -->
+        <div id="wiskunde-h2" class="wiskunde-chapter" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+          <h4 style="color: #60a5fa; margin-bottom: 0.75rem;">Hoofdstuk 2: Decimale Vormen & Periodes</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+              <strong>Zuiver Repeterend:</strong> De periode begint direct na de komma. Bv: 0,2424... (periode 24). Breuk is dan 24/99.
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+              <strong>Gemengd Repeterend:</strong> Tussen komma en periode staat een niet-repeterend deel. Bv: 1,281414... (niet-repeterend = 28, periode = 14).
+            </div>
           </div>
-          <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-            <strong>Machten & Tekens:</strong> <code>(-3)&sup2; = 9</code>, maar <code>-3&sup2; = -9</code>. &radic;(-64) bestaat niet in ℝ.
+        </div>
+
+        <!-- Hoofdstuk 3 -->
+        <div id="wiskunde-h3" class="wiskunde-chapter" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+          <h4 style="color: #60a5fa; margin-bottom: 0.75rem;">Hoofdstuk 3: Rekenregels, Grondtallen & Machten</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+              <strong>Begrippen:</strong> In <code>aⁿ</code> is <strong>a</strong> het grondtal en <strong>n</strong> de exponent (de macht).
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+              <strong>De Rekenregels:</strong><br>
+              • <strong>Vermenigvuldigen:</strong> <code>a³ · a⁴ = a⁷</code> (machten optellen)<br>
+              • <strong>Delen:</strong> <code>a⁵ / a² = a³</code> (machten aftrekken)<br>
+              • <strong>Macht van een macht:</strong> <code>(a³)² = a⁶</code> (machten vermenigvuldigen)<br>
+              • <strong>Nulde macht:</strong> <code>a⁰ = 1</code> (een getal tot de nulde is altijd 1)
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+              <strong>Valkuil Mintekens:</strong><br>
+              • <code>(-3)² = -3 · -3 = +9</code> (haakjes: de min hoort bij het kwadraat)<br>
+              • <code>-3² = -(3 · 3) = -9</code> (geen haakjes: het kwadraat geldt alléén voor de 3)
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+              <strong>Wortels:</strong><br>
+              • <code>√64 = 8</code><br>
+              • <code>-√64 = -8</code><br>
+              • <code>√(-64)</code> = <strong>Bestaat niet</strong> in ℝ (wortel uit negatief kan niet!)
+            </div>
           </div>
         </div>
       </div>
-
-      <div id="theory-nw" class="theory-block card" style="display: none;">
-        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🧬 Natuurwetenschappen: Genetica</h3>
-        <p style="color: var(--text-muted);">Genotype (genetische aanleg) vs Fenotype (uiterlijk kenmerk).</p>
-      </div>
-
       <div id="theory-engels" class="theory-block card" style="display: none;">
         <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🇬🇧 Engels: Grammatica</h3>
         <p style="color: var(--text-muted);">Second conditional: <em>If + past simple, ... would + infinitive</em>.</p>
