@@ -119,4 +119,13 @@ function showChapter(subject, chapterNum) {
   if (selectedChapter) {
     selectedChapter.style.display = 'block';
   }
+} 
+
+// Overschakelen van Landingspagina naar het echte Dashboard
+function enterDashboard() {
+  document.getElementById('landing-page').style.display = 'none';
+  document.getElementById('main-dashboard').style.display = 'block';
+  
+  // Zorg dat het home-tabblad direct actief is in het dashboard
+  switchTab('home');
 }
