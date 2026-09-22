@@ -1,25 +1,46 @@
-// 1. Zorg dat bij het laden van de pagina alleen 'home' zichtbaar is
+// 1. Zorg dat de browser onthoudt of je al bent ingelogd
 document.addEventListener("DOMContentLoaded", () => {
-  switchTab('home'); 
+  // Als de browser de 'sleutel' herkent, sla dan de login over!
+  if (localStorage.getItem('ayoub_ingelogd') === 'true') {
+    document.getElementById('landing-page').style.display = 'none';
+    document.getElementById('main-dashboard').style.display = 'block';
+    switchTab('home'); 
+  }
 });
 
-// 2. De onbreekbare tab-wisselaar
+// 2. Wachtwoord check (Nu mét automatische onthoud-functie)
+function checkAccess() {
+  const codeInput = document.getElementById('accessCode').value;
+  const errorMsg = document.getElementById('errorMsg');
+
+  if (codeInput === "Examenhulp23") {
+    errorMsg.style.display = 'none';
+    
+    // 🔥 SLA OP IN DE BROWSER DAT DE CODE GOED WAS 🔥
+    localStorage.setItem('ayoub_ingelogd', 'true');
+    
+    document.getElementById('landing-page').style.display = 'none';
+    document.getElementById('main-dashboard').style.display = 'block';
+    switchTab('home');
+  } else {
+    errorMsg.style.display = 'block';
+  }
+}
+
+// 3. De onbreekbare tab-wisselaar
 function switchTab(tabId) {
-  // Verberg ALLE secties keihard
   const allSections = document.querySelectorAll('.tab-content');
   allSections.forEach(sec => {
     sec.style.display = 'none';
     sec.classList.remove('active');
   });
 
-  // Toon ALLEEN de gekozen sectie
   const targetSection = document.getElementById('tab-' + tabId);
   if (targetSection) {
     targetSection.style.display = 'block';
     targetSection.classList.add('active');
   }
 
-  // Zet de knoppen in het menu goed
   const allNavBtns = document.querySelectorAll('.nav-btn');
   allNavBtns.forEach(btn => btn.classList.remove('active'));
   
@@ -29,32 +50,42 @@ function switchTab(tabId) {
     }
   });
 
-  // Scroll netjes terug naar boven als je wisselt
   window.scrollTo(0, 0);
 }
 
-// 3. Doorklikken naar specifiek vak
+// 4. Doorklikken naar specifiek vak
 function openSubject(subjectKey) {
   switchTab('leerstof');
   showSubjectTheory(subjectKey);
 }
 
-// 4. Toon theorie per vak
+// 5. Toon theorie per vak
 function showSubjectTheory(subjectKey) {
-  // Verberg alle theorieblokken
   const blocks = document.querySelectorAll('.theory-block');
   blocks.forEach(block => {
     block.style.display = 'none';
   });
 
-  // Toon alleen het juiste theorieblok
   const selected = document.getElementById('theory-' + subjectKey);
   if (selected) {
     selected.style.display = 'block';
   }
 }
 
-// 5. Examenrooster opslag (LocalStorage)
+// 6. Toon specifiek hoofdstuk binnen theorie
+function showChapter(subject, chapterNum) {
+  const chapters = document.querySelectorAll(`.${subject}-chapter`);
+  chapters.forEach(ch => {
+    ch.style.display = 'none';
+  });
+
+  const selectedChapter = document.getElementById(`${subject}-h${chapterNum}`);
+  if (selectedChapter) {
+    selectedChapter.style.display = 'block';
+  }
+}
+
+// 7. Examenrooster opslag (LocalStorage)
 let exams = JSON.parse(localStorage.getItem('ayoub_exams') || '[]');
 const examForm = document.getElementById('examForm');
 const examList = document.getElementById('examList');
@@ -105,40 +136,3 @@ if (examForm) {
 }
 
 renderExams();
-
-// Toon specifiek hoofdstuk binnen een theorieblok
-function showChapter(subject, chapterNum) {
-  // 1. Verberg eerst alle hoofdstukken van dit vak
-  const chapters = document.querySelectorAll(`.${subject}-chapter`);
-  chapters.forEach(ch => {
-    ch.style.display = 'none';
-  });
-
-  // 2. Toon alleen het hoofdstuk waarop geklikt is
-  const selectedChapter = document.getElementById(`${subject}-h${chapterNum}`);
-  if (selectedChapter) {
-    selectedChapter.style.display = 'block';
-  }
-} 
-
-// Controleer of het wachtwoord klopt
-function checkAccess() {
-  const codeInput = document.getElementById('accessCode').value;
-  const errorMsg = document.getElementById('errorMsg');
-
-  // Controleer of de code exact "Examenhulp23" is
-  if (codeInput === "Examenhulp23") {
-    // Verberg foutmelding
-    errorMsg.style.display = 'none';
-    
-    // Verberg landingspagina en toon dashboard
-    document.getElementById('landing-page').style.display = 'none';
-    document.getElementById('main-dashboard').style.display = 'block';
-    
-    // Zorg dat het menu op Home start
-    switchTab('home');
-  } else {
-    // Toon de rode foutmelding
-    errorMsg.style.display = 'block';
-  }
-}
