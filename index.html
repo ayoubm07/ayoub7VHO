@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ayoub-7VHO-1</title>
+  <title>Ayoub Exam Space</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body><body>
+<body>
 
   <!-- ========================================== -->
   <!-- 1. DE PROFESSIONELE LANDING PAGE           -->
@@ -23,6 +23,7 @@
       <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2rem;">
         Krijg exclusieve toegang tot gerichte theorie, interactieve oefentoetsen en een slim examenrooster. Ontworpen voor topprestaties.
       </p>
+
       <!-- Wachtwoord Invoer -->
       <div style="margin-top: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
         <div style="display: flex; gap: 0.5rem;">
@@ -31,6 +32,7 @@
         </div>
         <p id="errorMsg" style="color: #ef4444; display: none; font-size: 0.9rem; margin-top: 0.5rem;">❌ Verkeerde code. Probeer opnieuw.</p>
       </div>
+    </div>
 
     <div class="landing-features">
       <div class="feature-card">
@@ -52,236 +54,222 @@
   <!-- 2. HET HUIDIGE DASHBOARD (Standaard verborgen) -->
   <!-- ========================================== -->
   <div id="main-dashboard" style="display: none;">
-    
-    <!-- HIER KOMT JOUW BESTAANDE CODE -->
-    <!-- Laat je <nav class="navbar"> en <main class="container"> hier gewoon in staan! -->
 
+    <!-- Navigatiebalk -->
     <nav class="navbar">
-      <!-- ... jouw bestaande navigatie ... -->
+      <div class="nav-logo">⚡ Ayoub-7VHO-1</div>
+      <div class="nav-links">
+        <button class="nav-btn active" onclick="switchTab('home')">Home</button>
+        <button class="nav-btn" onclick="switchTab('examens')">Examenrooster</button>
+        <button class="nav-btn" onclick="switchTab('leerstof')">Theorie & Uitleg</button>
+        <button class="nav-btn" onclick="switchTab('toetsen')">Proeftoetsen</button>
+      </div>
     </nav>
 
     <main class="container">
-      <!-- ... jouw bestaande secties en vakken ... -->
-    </main>
+      <!-- SECTIE 1: HOME / DASHBOARD -->
+      <section id="tab-home" class="tab-content active">
+        <div class="hero">
+          <span class="badge">Platform voorbereiding</span>
+          <h1>Alles voor je examens op <span class="accent">één centrale plek</span></h1>
+          <p>Directe theorie, samenvattingen en actieve oefentoetsen per vak.</p>
+        </div>
 
-  </div>
+        <h2 class="section-title">Kies een vak</h2>
+        <div class="subject-grid">
+          <div class="subject-card">
+            <div class="card-icon">📐</div>
+            <h3>Wiskunde</h3>
+            <p>Intervallen, bewerkingen & formules.</p>
+            <a href="wiskunde-toets-1.html" class="btn-primary" style="display: block; text-decoration: none; margin-top: 1rem; padding: 0.6rem; font-size: 0.85rem; text-align: center;">
+              ✍️ Start Oefentoets (30 Vragen)
+            </a>
+            <button class="btn-primary" style="display: block; width: 100%; margin-top: 0.5rem; padding: 0.5rem; font-size: 0.85rem; background: #334155; color: #fff;" onclick="openSubject('wiskunde')">
+              📖 Bekijk Theorie
+            </button>
+          </div>
 
-  <script src="app.js"></script>
-</body>
-</html>
+          <div class="subject-card" onclick="openSubject('nw')">
+            <div class="card-icon">🧬</div>
+            <h3>Natuurwetenschappen</h3>
+            <p>Genetica, kruisingen & erfelijkheid.</p>
+          </div>
 
-  <!-- Navigatiebalk -->
-  <nav class="navbar">
-    <div class="nav-logo">⚡ Ayoub-7VHO-1</div>
-    <div class="nav-links">
-      <button class="nav-btn active" onclick="switchTab('home')">Home</button>
-      <button class="nav-btn" onclick="switchTab('examens')">Examenrooster</button>
-      <button class="nav-btn" onclick="switchTab('leerstof')">Theorie & Uitleg</button>
-      <button class="nav-btn" onclick="switchTab('toetsen')">Proeftoetsen</button>
-    </div>
-  </nav>
+          <div class="subject-card" onclick="openSubject('engels')">
+            <div class="card-icon">🇬🇧</div>
+            <h3>Engels</h3>
+            <p>Conditionals, grammatica & vocabulaire.</p>
+          </div>
 
-  <main class="container">
-    <!-- SECTIE 1: HOME / DASHBOARD -->
-    <section id="tab-home" class="tab-content active">
-      <div class="hero">
-        <span class="badge">Platform voorbereiding</span>
-        <h1>Alles voor je examens op <span class="accent">één centrale plek</span></h1>
-        <p>Directe theorie, samenvattingen en actieve oefentoetsen per vak.</p>
-      </div>
+          <div class="subject-card" onclick="openSubject('nederlands')">
+            <div class="card-icon">📚</div>
+            <h3>Nederlands</h3>
+            <p>Tekststructuren & zakelijke communicatie.</p>
+          </div>
 
-      <h2 class="section-title">Kies een vak</h2>
-      <div class="subject-grid">
-        <div class="subject-card">
-          <div class="card-icon">📐</div>
-          <h3>Wiskunde</h3>
-          <p>Intervallen, bewerkingen & formules.</p>
-          <a href="wiskunde-toets-1.html" class="btn-primary" style="display: block; text-decoration: none; margin-top: 1rem; padding: 0.6rem; font-size: 0.85rem; text-align: center;">
-            ✍️ Start Oefentoets (30 Vragen)
+          <div class="subject-card" onclick="openSubject('boekhouding')">
+            <div class="card-icon">📊</div>
+            <h3>Boekhouding</h3>
+            <p>Balans, journaalposten & rekeningen.</p>
+          </div>
+
+          <div class="subject-card" onclick="openSubject('economie')">
+            <div class="card-icon">💶</div>
+            <h3>Economie</h3>
+            <p>Marktvormen, conjunctuur & prijzen.</p>
+          </div>
+
+          <div class="subject-card" onclick="openSubject('marketing')">
+            <div class="card-icon">📈</div>
+            <h3>Marketing</h3>
+            <p>De 4 P's & doelgroepstrategieën.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTIE 2: EXAMENROOSTER -->
+      <section id="tab-examens" class="tab-content">
+        <h2 class="section-title">Ingeplande Examens</h2>
+        <div class="card">
+          <form id="examForm">
+            <div class="form-grid">
+              <input type="text" id="examSubject" placeholder="Vak..." required />
+              <input type="datetime-local" id="examDate" required />
+              <input type="text" id="examWeight" placeholder="Type / Weging (bijv. 30%)" />
+            </div>
+            <button type="submit" class="btn-primary" style="margin-top: 1rem;">+ Examen Toevoegen</button>
+          </form>
+        </div>
+        <div id="examList" class="exam-list"></div>
+      </section>
+
+      <!-- SECTIE 3: THEORIE & UITLEG -->
+      <section id="tab-leerstof" class="tab-content">
+        <h2 class="section-title">Theorie per Vak</h2>
+
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+          <button class="btn-primary" onclick="showSubjectTheory('wiskunde')">📐 Wiskunde</button>
+          <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('nw')">🧬 Natuurwetenschappen</button>
+          <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('engels')">🇬🇧 Engels</button>
+          <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('nederlands')">📚 Nederlands</button>
+          <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('boekhouding')">📊 Boekhouding</button>
+          <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('economie')">💶 Economie</button>
+          <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('marketing')">📈 Marketing</button>
+        </div>
+
+        <!-- THEORIE: WISKUNDE MET HOOFDSTUKKEN -->
+        <div id="theory-wiskunde" class="theory-block card">
+          <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📐 Wiskunde: Basis & Bewerkingen</h3>
+          <p style="color: var(--text-muted); margin-bottom: 1rem;">Kies een hoofdstuk om de theorie in te zien:</p>
+          
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <button class="btn-primary" style="background:#334155; padding: 0.5rem 1rem;" onclick="showChapter('wiskunde', 1)">📖 H1: Getallen & Intervallen</button>
+            <button class="btn-primary" style="background:#334155; padding: 0.5rem 1rem;" onclick="showChapter('wiskunde', 2)">📖 H2: Decimale Vormen</button>
+            <button class="btn-primary" style="background:#334155; padding: 0.5rem 1rem;" onclick="showChapter('wiskunde', 3)">📖 H3: Rekenregels & Machten</button>
+          </div>
+
+          <div id="wiskunde-h1" class="wiskunde-chapter" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <h4 style="color: #60a5fa; margin-bottom: 0.75rem;">Hoofdstuk 1: Getallenverzamelingen & Intervallen</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+                <strong>Getallenverzamelingen:</strong><br>
+                • <strong>ℕ (natuurlijk):</strong> 0, 1, 2, 3...<br>
+                • <strong>ℤ (geheel):</strong> ..., -2, -1, 0, 1, 2...<br>
+                • <strong>ℚ (rationaal):</strong> Breuken en periodieke getallen.<br>
+                • <strong>ℝ (reëel):</strong> Alles, inclusief wortels en π.
+              </div>
+              <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+                <strong>Intervallen:</strong><br>
+                <code>[a, b]</code> telt mee (≤, ≥).<br>
+                <code>]a, b[</code> telt niet mee (&lt;, &gt;).<br>
+                Oneindig is altijd open: <code>]-∞, 3]</code>.
+              </div>
+            </div>
+          </div>
+
+          <div id="wiskunde-h2" class="wiskunde-chapter" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <h4 style="color: #60a5fa; margin-bottom: 0.75rem;">Hoofdstuk 2: Decimale Vormen & Periodes</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+                <strong>Zuiver Repeterend:</strong> De periode begint direct na de komma. Bv: 0,2424... (periode 24). Breuk is dan 24/99.
+              </div>
+              <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+                <strong>Gemengd Repeterend:</strong> Tussen komma en periode staat een niet-repeterend deel. Bv: 1,281414... (niet-repeterend = 28, periode = 14).
+              </div>
+            </div>
+          </div>
+
+          <div id="wiskunde-h3" class="wiskunde-chapter" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <h4 style="color: #60a5fa; margin-bottom: 0.75rem;">Hoofdstuk 3: Rekenregels, Grondtallen & Machten</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+                <strong>Begrippen:</strong> In <code>aⁿ</code> is <strong>a</strong> het grondtal en <strong>n</strong> de exponent (de macht).
+              </div>
+              <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+                <strong>De Rekenregels:</strong><br>
+                • <strong>Vermenigvuldigen:</strong> <code>a³ · a⁴ = a⁷</code> (machten optellen)<br>
+                • <strong>Delen:</strong> <code>a⁵ / a² = a³</code> (machten aftrekken)<br>
+                • <strong>Macht van een macht:</strong> <code>(a³)² = a⁶</code> (machten vermenigvuldigen)<br>
+                • <strong>Nulde macht:</strong> <code>a⁰ = 1</code> (een getal tot de nulde is altijd 1)
+              </div>
+              <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+                <strong>Valkuil Mintekens:</strong><br>
+                • <code>(-3)² = -3 · -3 = +9</code> (haakjes: de min hoort bij het kwadraat)<br>
+                • <code>-3² = -(3 · 3) = -9</code> (geen haakjes: het kwadraat geldt alléén voor de 3)
+              </div>
+              <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
+                <strong>Wortels:</strong><br>
+                • <code>√64 = 8</code><br>
+                • <code>-√64 = -8</code><br>
+                • <code>√(-64)</code> = <strong>Bestaat niet</strong> in ℝ (wortel uit negatief kan niet!)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="theory-nw" class="theory-block card" style="display: none;">
+          <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🧬 Natuurwetenschappen: Genetica</h3>
+          <p style="color: var(--text-muted);">Genotype (genetische aanleg) vs Fenotype (uiterlijk kenmerk).</p>
+        </div>
+
+        <div id="theory-engels" class="theory-block card" style="display: none;">
+          <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🇬🇧 Engels: Grammatica</h3>
+          <p style="color: var(--text-muted);">Second conditional: <em>If + past simple, ... would + infinitive</em>.</p>
+        </div>
+
+        <div id="theory-nederlands" class="theory-block card" style="display: none;">
+          <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📚 Nederlands</h3>
+          <p style="color: var(--text-muted);">Tekststructuren: Inleiding, Kern en Slot.</p>
+        </div>
+
+        <div id="theory-boekhouding" class="theory-block card" style="display: none;">
+          <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📊 Boekhouding</h3>
+          <p style="color: var(--text-muted);">Balans: Activa (bezittingen links) = Passiva (schulden rechts).</p>
+        </div>
+
+        <div id="theory-economie" class="theory-block card" style="display: none;">
+          <h3 style="color: var(--accent); margin-bottom: 0.5rem;">💶 Economie</h3>
+          <p style="color: var(--text-muted);">Prijsvorming via vraag en aanbod op de markt.</p>
+        </div>
+
+        <div id="theory-marketing" class="theory-block card" style="display: none;">
+          <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📈 Marketing</h3>
+          <p style="color: var(--text-muted);">De 4 P's: Product, Prijs, Plaats, Promotie.</p>
+        </div>
+      </section>
+
+      <!-- SECTIE 4: PROEFTOETSEN -->
+      <section id="tab-toetsen" class="tab-content">
+        <h2 class="section-title">Actieve Proeftoetsen</h2>
+        <div class="card">
+          <p>Kies een vak om een toets te starten:</p>
+          <a href="wiskunde-toets-1.html" class="btn-primary" style="display:inline-block; text-decoration:none; margin-top:1rem;">
+            📐 Wiskunde: Les 1 en 2 (30 Vragen)
           </a>
-          <button class="btn-primary" style="display: block; width: 100%; margin-top: 0.5rem; padding: 0.5rem; font-size: 0.85rem; background: #334155; color: #fff;" onclick="openSubject('wiskunde')">
-            📖 Bekijk Theorie
-          </button>
         </div>
-
-        <div class="subject-card" onclick="openSubject('nw')">
-          <div class="card-icon">🧬</div>
-          <h3>Natuurwetenschappen</h3>
-          <p>Genetica, kruisingen & erfelijkheid.</p>
-        </div>
-
-        <div class="subject-card" onclick="openSubject('engels')">
-          <div class="card-icon">🇬🇧</div>
-          <h3>Engels</h3>
-          <p>Conditionals, grammatica & vocabulaire.</p>
-        </div>
-
-        <div class="subject-card" onclick="openSubject('nederlands')">
-          <div class="card-icon">📚</div>
-          <h3>Nederlands</h3>
-          <p>Tekststructuren & zakelijke communicatie.</p>
-        </div>
-
-        <div class="subject-card" onclick="openSubject('boekhouding')">
-          <div class="card-icon">📊</div>
-          <h3>Boekhouding</h3>
-          <p>Balans, journaalposten & rekeningen.</p>
-        </div>
-
-        <div class="subject-card" onclick="openSubject('economie')">
-          <div class="card-icon">💶</div>
-          <h3>Economie</h3>
-          <p>Marktvormen, conjunctuur & prijzen.</p>
-        </div>
-
-        <div class="subject-card" onclick="openSubject('marketing')">
-          <div class="card-icon">📈</div>
-          <h3>Marketing</h3>
-          <p>De 4 P's & doelgroepstrategieën.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTIE 2: EXAMENROOSTER -->
-    <section id="tab-examens" class="tab-content">
-      <h2 class="section-title">Ingeplande Examens</h2>
-      <div class="card">
-        <form id="examForm">
-          <div class="form-grid">
-            <input type="text" id="examSubject" placeholder="Vak..." required />
-            <input type="datetime-local" id="examDate" required />
-            <input type="text" id="examWeight" placeholder="Type / Weging (bijv. 30%)" />
-          </div>
-          <button type="submit" class="btn-primary" style="margin-top: 1rem;">+ Examen Toevoegen</button>
-        </form>
-      </div>
-      <div id="examList" class="exam-list"></div>
-    </section>
-
-    <!-- SECTIE 3: THEORIE & UITLEG -->
-    <section id="tab-leerstof" class="tab-content">
-      <h2 class="section-title">Theorie per Vak</h2>
-
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
-        <button class="btn-primary" onclick="showSubjectTheory('wiskunde')">📐 Wiskunde</button>
-        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('nw')">🧬 Natuurwetenschappen</button>
-        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('engels')">🇬🇧 Engels</button>
-        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('nederlands')">📚 Nederlands</button>
-        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('boekhouding')">📊 Boekhouding</button>
-        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('economie')">💶 Economie</button>
-        <button class="btn-primary" style="background:#1e293b; color:#fff;" onclick="showSubjectTheory('marketing')">📈 Marketing</button>
-      </div>
-
-      <!-- THEORIE: WISKUNDE -->
-      <div id="theory-wiskunde" class="theory-block card">
-        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📐 Wiskunde: Basis & Bewerkingen</h3>
-        <p style="color: var(--text-muted); margin-bottom: 1rem;">Kies een hoofdstuk om de theorie in te zien:</p>
-        
-        <!-- Hoofdstuk Knoppen -->
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
-          <button class="btn-primary" style="background:#334155; padding: 0.5rem 1rem;" onclick="showChapter('wiskunde', 1)">📖 H1: Getallen & Intervallen</button>
-          <button class="btn-primary" style="background:#334155; padding: 0.5rem 1rem;" onclick="showChapter('wiskunde', 2)">📖 H2: Decimale Vormen</button>
-          <button class="btn-primary" style="background:#334155; padding: 0.5rem 1rem;" onclick="showChapter('wiskunde', 3)">📖 H3: Rekenregels & Machten</button>
-        </div>
-
-        <!-- Hoofdstuk 1 -->
-        <div id="wiskunde-h1" class="wiskunde-chapter" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
-          <h4 style="color: #60a5fa; margin-bottom: 0.75rem;">Hoofdstuk 1: Getallenverzamelingen & Intervallen</h4>
-          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-              <strong>Getallenverzamelingen:</strong><br>
-              • <strong>ℕ (natuurlijk):</strong> 0, 1, 2, 3...<br>
-              • <strong>ℤ (geheel):</strong> ..., -2, -1, 0, 1, 2...<br>
-              • <strong>ℚ (rationaal):</strong> Breuken en periodieke getallen.<br>
-              • <strong>ℝ (reëel):</strong> Alles, inclusief wortels en π.
-            </div>
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-              <strong>Intervallen:</strong><br>
-              <code>[a, b]</code> telt mee (≤, ≥).<br>
-              <code>]a, b[</code> telt niet mee (&lt;, &gt;).<br>
-              Oneindig is altijd open: <code>]-∞, 3]</code>.
-            </div>
-          </div>
-        </div>
-
-        <!-- Hoofdstuk 2 -->
-        <div id="wiskunde-h2" class="wiskunde-chapter" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
-          <h4 style="color: #60a5fa; margin-bottom: 0.75rem;">Hoofdstuk 2: Decimale Vormen & Periodes</h4>
-          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-              <strong>Zuiver Repeterend:</strong> De periode begint direct na de komma. Bv: 0,2424... (periode 24). Breuk is dan 24/99.
-            </div>
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-              <strong>Gemengd Repeterend:</strong> Tussen komma en periode staat een niet-repeterend deel. Bv: 1,281414... (niet-repeterend = 28, periode = 14).
-            </div>
-          </div>
-        </div>
-
-        <!-- Hoofdstuk 3 -->
-        <div id="wiskunde-h3" class="wiskunde-chapter" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
-          <h4 style="color: #60a5fa; margin-bottom: 0.75rem;">Hoofdstuk 3: Rekenregels, Grondtallen & Machten</h4>
-          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-              <strong>Begrippen:</strong> In <code>aⁿ</code> is <strong>a</strong> het grondtal en <strong>n</strong> de exponent (de macht).
-            </div>
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-              <strong>De Rekenregels:</strong><br>
-              • <strong>Vermenigvuldigen:</strong> <code>a³ · a⁴ = a⁷</code> (machten optellen)<br>
-              • <strong>Delen:</strong> <code>a⁵ / a² = a³</code> (machten aftrekken)<br>
-              • <strong>Macht van een macht:</strong> <code>(a³)² = a⁶</code> (machten vermenigvuldigen)<br>
-              • <strong>Nulde macht:</strong> <code>a⁰ = 1</code> (een getal tot de nulde is altijd 1)
-            </div>
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-              <strong>Valkuil Mintekens:</strong><br>
-              • <code>(-3)² = -3 · -3 = +9</code> (haakjes: de min hoort bij het kwadraat)<br>
-              • <code>-3² = -(3 · 3) = -9</code> (geen haakjes: het kwadraat geldt alléén voor de 3)
-            </div>
-            <div style="background: rgba(15, 23, 42, 0.6); padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border);">
-              <strong>Wortels:</strong><br>
-              • <code>√64 = 8</code><br>
-              • <code>-√64 = -8</code><br>
-              • <code>√(-64)</code> = <strong>Bestaat niet</strong> in ℝ (wortel uit negatief kan niet!)
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="theory-engels" class="theory-block card" style="display: none;">
-        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🇬🇧 Engels: Grammatica</h3>
-        <p style="color: var(--text-muted);">Second conditional: <em>If + past simple, ... would + infinitive</em>.</p>
-      </div>
-
-      <div id="theory-nederlands" class="theory-block card" style="display: none;">
-        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📚 Nederlands</h3>
-        <p style="color: var(--text-muted);">Tekststructuren: Inleiding, Kern en Slot.</p>
-      </div>
-
-      <div id="theory-boekhouding" class="theory-block card" style="display: none;">
-        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📊 Boekhouding</h3>
-        <p style="color: var(--text-muted);">Balans: Activa (bezittingen links) = Passiva (schulden rechts).</p>
-      </div>
-
-      <div id="theory-economie" class="theory-block card" style="display: none;">
-        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">💶 Economie</h3>
-        <p style="color: var(--text-muted);">Prijsvorming via vraag en aanbod op de markt.</p>
-      </div>
-
-      <div id="theory-marketing" class="theory-block card" style="display: none;">
-        <h3 style="color: var(--accent); margin-bottom: 0.5rem;">📈 Marketing</h3>
-        <p style="color: var(--text-muted);">De 4 P's: Product, Prijs, Plaats, Promotie.</p>
-      </div>
-    </section>
-
-    <!-- SECTIE 4: PROEFTOETSEN -->
-    <section id="tab-toetsen" class="tab-content">
-      <h2 class="section-title">Actieve Proeftoetsen</h2>
-      <div class="card">
-        <p>Kies een vak om een toets te starten:</p>
-        <a href="wiskunde-toets-1.html" class="btn-primary" style="display:inline-block; text-decoration:none; margin-top:1rem;">
-          📐 Wiskunde: Les 1 en 2 (30 Vragen)
-        </a>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div> <!-- EINDE VAN MAIN-DASHBOARD -->
 
   <script src="app.js"></script>
 </body>
