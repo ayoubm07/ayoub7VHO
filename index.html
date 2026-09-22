@@ -50,12 +50,33 @@
     </div>
   </div>
 
-  <!-- ========================================== -->
+<!-- ========================================== -->
   <!-- 2. HET HUIDIGE DASHBOARD (Standaard verborgen) -->
   <!-- ========================================== -->
   <div id="main-dashboard" style="display: none;">
 
-    <div class="subject-grid">
+    <!-- Navigatiebalk -->
+    <nav class="navbar">
+      <div class="nav-logo">⚡ Ayoub-7VHO-1</div>
+      <div class="nav-links">
+        <button class="nav-btn active" onclick="switchTab('home')">Home</button>
+        <button class="nav-btn" onclick="switchTab('examens')">Examenrooster</button>
+        <button class="nav-btn" onclick="switchTab('leerstof')">Theorie & Uitleg</button>
+        <button class="nav-btn" onclick="switchTab('toetsen')">Proeftoetsen</button>
+      </div>
+    </nav>
+
+    <main class="container">
+      <!-- SECTIE 1: HOME / DASHBOARD -->
+      <section id="tab-home" class="tab-content active">
+        <div class="hero">
+          <span class="badge">Platform voorbereiding</span>
+          <h1>Alles voor je examens op <span class="accent">één centrale plek</span></h1>
+          <p>Directe theorie, samenvattingen en actieve oefentoetsen per vak.</p>
+        </div>
+
+        <h2 class="section-title">Kies een vak</h2>
+        <div class="subject-grid">
           <div class="subject-card" onclick="openSubject('wiskunde')">
             <div class="card-icon">📐</div>
             <h3>Wiskunde</h3>
@@ -97,72 +118,9 @@
             <h3>Marketing</h3>
             <p>De 4 P's & doelgroepstrategieën.</p>
           </div>
-        </div> 
-
-    <main class="container">
-      <!-- SECTIE 1: HOME / DASHBOARD -->
-      <section id="tab-home" class="tab-content active">
-        <div class="hero">
-          <span class="badge">Platform voorbereiding</span>
-          <h1>Alles voor je examens op <span class="accent">één centrale plek</span></h1>
-          <p>Directe theorie, samenvattingen en actieve oefentoetsen per vak.</p>
         </div>
-
-        <h2 class="section-title">Kies een vak</h2>
-        <div class="subject-grid">
-          <div class="subject-card">
-            <div class="card-icon">📐</div>
-            <h3>Wiskunde</h3>
-            <p>Intervallen, bewerkingen & formules.</p>
-            <a href="wiskunde-toets-1.html" class="btn-primary" style="display: block; text-decoration: none; margin-top: 1rem; padding: 0.6rem; font-size: 0.85rem; text-align: center;">
-              ✍️ Start Oefentoets (30 Vragen)
-            </a>
-            <button class="btn-primary" style="display: block; width: 100%; margin-top: 0.5rem; padding: 0.5rem; font-size: 0.85rem; background: #334155; color: #fff;" onclick="openSubject('wiskunde')">
-              📖 Bekijk Theorie
-            </button>
-          </div>
-
-          <div class="subject-card" onclick="openSubject('nw')">
-            <div class="card-icon">🧬</div>
-            <h3>Natuurwetenschappen</h3>
-            <p>Genetica, kruisingen & erfelijkheid.</p>
-          </div>
-
-          <div class="subject-card" onclick="openSubject('engels')">
-            <div class="card-icon">🇬🇧</div>
-            <h3>Engels</h3>
-            <p>Conditionals, grammatica & vocabulaire.</p>
-          </div>
-
-          <div class="subject-card" onclick="openSubject('nederlands')">
-            <div class="card-icon">📚</div>
-            <h3>Nederlands</h3>
-            <p>Tekststructuren & zakelijke communicatie.</p>
-          </div>
-
-          <div class="subject-card" onclick="openSubject('boekhouding')">
-            <div class="card-icon">📊</div>
-            <h3>Boekhouding</h3>
-            <p>Balans, journaalposten & rekeningen.</p>
-          </div>
-
-          <div class="subject-card" onclick="openSubject('economie')">
-            <div class="card-icon">💶</div>
-            <h3>Economie</h3>
-            <p>Marktvormen, conjunctuur & prijzen.</p>
-          </div>
-
-          <div class="subject-card">
-            <div class="card-icon">📈</div>
-            <h3>Marketing</h3>
-            <p>De 4 P's & doelgroepstrategieën.</p>
-            <a href="marketing-toets-1.html" class="btn-primary" style="display: block; text-decoration: none; margin-top: 1rem; padding: 0.6rem; font-size: 0.85rem; text-align: center;">
-              ✍️ Customer Journey 1
-            </a>
-            <button class="btn-primary" style="display: block; width: 100%; margin-top: 0.5rem; padding: 0.5rem; font-size: 0.85rem; background: #334155; color: #fff;" onclick="openSubject('marketing')">
-              📖 Bekijk Theorie
-            </button>
-          </div>
+      </section>
+      
 
       <!-- SECTIE 2: EXAMENROOSTER -->
       <section id="tab-examens" class="tab-content">
