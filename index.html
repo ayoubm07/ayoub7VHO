@@ -23,10 +23,14 @@
       <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2rem;">
         Krijg exclusieve toegang tot gerichte theorie, interactieve oefentoetsen en een slim examenrooster. Ontworpen voor topprestaties.
       </p>
-      <button class="btn-primary" style="font-size: 1.2rem; padding: 1rem 2.5rem; border-radius: 50px; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);" onclick="enterDashboard()">
-        🚀 Krijg Toegang
-      </button>
-    </div>
+      <!-- Wachtwoord Invoer -->
+      <div style="margin-top: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="password" id="accessCode" placeholder="Vul toegangscode in..." style="padding: 0.8rem 1rem; border-radius: 6px; border: 1px solid var(--border); background: rgba(15, 23, 42, 0.8); color: #fff; font-size: 1rem; width: 250px; outline: none;">
+          <button class="btn-primary" style="font-size: 1rem; padding: 0.8rem 1.5rem; border-radius: 6px;" onclick="checkAccess()">Inloggen</button>
+        </div>
+        <p id="errorMsg" style="color: #ef4444; display: none; font-size: 0.9rem; margin-top: 0.5rem;">❌ Verkeerde code. Probeer opnieuw.</p>
+      </div>
 
     <div class="landing-features">
       <div class="feature-card">

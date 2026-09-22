@@ -121,11 +121,24 @@ function showChapter(subject, chapterNum) {
   }
 } 
 
-// Overschakelen van Landingspagina naar het echte Dashboard
-function enterDashboard() {
-  document.getElementById('landing-page').style.display = 'none';
-  document.getElementById('main-dashboard').style.display = 'block';
-  
-  // Zorg dat het home-tabblad direct actief is in het dashboard
-  switchTab('home');
+// Controleer of het wachtwoord klopt
+function checkAccess() {
+  const codeInput = document.getElementById('accessCode').value;
+  const errorMsg = document.getElementById('errorMsg');
+
+  // Controleer of de code exact "Examenhulp23" is
+  if (codeInput === "Examenhulp23") {
+    // Verberg foutmelding
+    errorMsg.style.display = 'none';
+    
+    // Verberg landingspagina en toon dashboard
+    document.getElementById('landing-page').style.display = 'none';
+    document.getElementById('main-dashboard').style.display = 'block';
+    
+    // Zorg dat het menu op Home start
+    switchTab('home');
+  } else {
+    // Toon de rode foutmelding
+    errorMsg.style.display = 'block';
+  }
 }
