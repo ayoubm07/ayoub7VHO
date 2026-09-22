@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+
+<html lang="nl" class="scroll-smooth">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Examentrainer Marketing H1 - Lumina Roasters Casus</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+ 
+
+  <style>
+
+    body {
+
+      font-family: 'Plus Jakarta Sans', sans-serif;
+
+      background-color: #f8fafc;
+
+      color: #0f172a;
+
+    }
+
+   
+
+    .chart-container {
+
+      position: relative;
+
+      width: 100%;
+
+      max-width: 600px;
+
+      margin-left: auto;
+
+      margin-right: auto;
+
+      height: 320px;
+
+      max-height: 400px;
+
+    }
+
+    @media (min-width: 768px) {
+
+      .chart-container {
+
+        height: 360px;
+
+      }
+
+    }
+
+
+
+    .tab-active {
+
+      background-color: #0284c7; /* Sky 600 */
+
+      color: #ffffff;
+
+      box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.3);
+
+    }
+
+
+
+    /* Highlighter classes for the optional help tool */
+
+    .highlight-active-tp { background-color: #fef08a; color: #854d0e; font-weight: 600; padding: 1px 4px; border-radius: 4px; }
+
+    .highlight-active-fn { background-color: #bfdbfe; color: #1e40af; font-weight: 600; padding: 1px 4px; border-radius: 4px; }
+
+    .highlight-active-em { background-color: #bbf7d0; color: #166534; font-weight: 600; padding: 1px 4px; border-radius: 4px; }
+
+    .highlight-active-sr { background-color: #e9d5ff; color: #6b21a8; font-weight: 600; padding: 1px 4px; border-radius: 4px; }
+
+    .highlight-active-am { background-color: #fbcfe8; color: #9d174d; font-weight: 600; padding: 1px 4px; border-radius: 4px; }
+
+  </style>
+
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-sky-200 selection:text-sky-900">
+
+
+
+  <!-- LOCK SCREEN OVERLAY -->
+
+  <div id="lock-screen" class="fixed inset-0 z-[100] bg-slate-900/95 backdrop-blur-sm flex flex-col items-center justify-center transition-all duration-500">
+
+    <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-sm w-full mx-4 text-center space-y-6 transform transition-all duration-300" id="lock-modal">
+
+      <div class="w-20 h-20 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
+
+        🔒
+
+      </div>
+
+      <div>
+
+        <h2 class="text-2xl font-extrabold text-slate-800">Examen Beveiligd</h2>
+
+        <p class="text-sm text-slate-500 mt-2 font-medium">Voer de pincode in om de examentrainer te starten.</p>
+
+      </div>
+
+      <div class="space-y-2">
+
+        <input type="password" id="access-code" class="w-full text-center text-3xl tracking-[0.5em] p-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 outline-none transition font-mono" placeholder="••••" maxlength="4">
+
+        <p id="lock-error" class="text-red-500 text-xs font-bold h-4 opacity-0 transition-opacity">Verkeerde code, probeer opnieuw.</p>
+
+      </div>
+
+      <button onclick="checkAccess()" class="w-full py-4 bg-sky-600 hover:bg-sky-700 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transition-all active:scale-95 flex justify-center items-center gap-2">
+
+        <span>Ontgrendel</span>
+
+      </button>
+
+      <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Tip voor Batman: De code is <span class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-600">1234</span></p>
+
+    </div>
+
+  </div>
+
+
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+
+      <div class="flex items-center space-x-3">
+
+        <div class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold text-xl shadow-md">
+
+          ☕
+
+        </div>
+
+        <div>
+
+          <h1 class="text-xl font-extrabold text-slate-800 tracking-tight">Marketing H1: Examentrainer 3.0</h1>
+
+          <p class="text-xs text-slate-500 font-medium">Nieuwe Casus "Lumina Roasters" • Automatische Nakijk-Bot</p>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- Navigation Tabs -->
+
+      <nav class="flex flex-wrap items-center gap-1.5 bg-slate-100 p-1.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600">
+
+        <button onclick="switchTab('casus')" id="nav-casus" class="px-3.5 py-2 rounded-lg transition-all tab-active flex items-center gap-1.5">
+
+          <span>📖</span> 1. Nieuwe Casus
+
+        </button>
+
+        <button onclick="switchTab('studio')" id="nav-studio" class="px-3.5 py-2 rounded-lg transition-all hover:text-slate-900 flex items-center gap-1.5">
+
+          <span>✍️</span> 2. Open ToetsStudio
+
+        </button>
+
+        <button onclick="switchTab('journey')" id="nav-journey" class="px-3.5 py-2 rounded-lg transition-all hover:text-slate-900 flex items-center gap-1.5">
+
+          <span>🗺️</span> 3. Klantreis Fasen
+
+        </button>
+
+        <button onclick="switchTab('persona')" id="nav-persona" class="px-3.5 py-2 rounded-lg transition-all hover:text-slate-900 flex items-center gap-1.5">
+
+          <span>👤</span> 4. Persona & 9+
+
+        </button>
+
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3.5 py-2 rounded-lg transition-all hover:text-slate-900 flex items-center gap-1.5">
+
+          <span>📊</span> 5. Analytics
+
+        </button>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+
+
+    <!-- TAB 1: NIEUWE CASUS LUMINA ROASTERS -->
+
+    <section id="tab-casus" class="space-y-6">
+
+      <div class="bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-200 rounded-2xl p-6 shadow-sm">
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+
+          <div>
+
+            <span class="inline-block bg-sky-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md mb-2">Examen Casus #3</span>
+
+            <h2 class="text-2xl font-bold text-slate-900">"Lumina Roasters: De ultieme thuis-barista"</h2>
+
+            <p class="text-sm text-slate-600 mt-1 leading-relaxed">
+
+              Lees onderstaande tekst aandachtig door. Net als op een echt examen is deze tekst 100% schoon (geen opmaak of hints). Haal zelf de theorie eruit en ga daarna naar tabblad 2 om de open vragen te maken!
+
+            </p>
+
+          </div>
+
+          <button onclick="switchTab('studio')" class="self-start md:self-center px-5 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl shadow-md transition flex items-center gap-2 text-sm whitespace-nowrap">
+
+            <span>✍️</span> Naar de Toetsopdrachten
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-5 leading-relaxed text-slate-700 text-base">
+
+          <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Praktijkverhaal: Sarah (32 jaar)</span>
+
+            <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Casuslengte: 285 woorden</span>
+
+          </div>
+
+
+
+          <p id="story-p1">
+
+            Sarah is 32 jaar oud en werkt sinds kort vier dagen per week vanuit huis als grafisch vormgever. Tijdens haar werkdagen drinkt ze oploskoffie, maar ze ergert zich mateloos aan de waterige smaak. Ze mist de luxe koffie van de espressobar naast haar oude kantoor. Ze besluit dat het tijd is om te investeren in een professionele espressomachine voor in haar eigen keuken.
+
+          </p>
+
+
+
+          <p id="story-p2">
+
+            Ze opent Google en zoekt naar de beste espressomachines voor thuisgebruik. Om advies in te winnen van andere koffieliefhebbers leest ze verschillende discussies op het platform Reddit. Een dag later ziet ze tijdens het scrollen op haar telefoon een Instagram-advertentie van het merk Lumina Roasters voorbij komen. Ze klikt op de link, gaat naar hun website en vult de interactieve koffiesmaak-quiz in om te kijken welke machine het beste bij haar past.
+
+          </p>
+
+
+
+          <p id="story-p3">
+
+            Het resultaat van de test adviseert haar de Lumina Pro Elite. Sarah is overtuigd, stopt het apparaat in haar online winkelmandje en rekent veilig af met Apple Pay.
+
+          </p>
+
+
+
+          <p id="story-p4">
+
+            Binnen twee werkdagen wordt de grote doos thuisbezorgd door de pakketdienst. De machine is stevig ingepakt in piepschuim, wekt direct een professionele indruk en zet precies de hete, sterke koffie die in de omschrijving beloofd werd. Als Sarah de doos verder leegmaakt, stuit ze plotseling op een extra pakketje. Er blijkt een zware, keramische koffiemok in te zitten waar haar eigen voornaam in is gegraveerd, samen met een gratis proefzakje dure koffiebonen uit Costa Rica en een handgeschreven kaartje: "Welkom bij de club Sarah, geniet van je eerste échte thuis-espresso!"
+
+          </p>
+
+
+
+          <p id="story-p5">
+
+            Vijf dagen na de bezorging ontvangt Sarah een automatische e-mail van Lumina Roasters met een handige video over hoe ze het stoompijpje het beste kan schoonmaken en de vraag of de machine bevalt. Sarah is zo blij met haar aankoop en de gepersonaliseerde mok dat ze die ochtend direct een TikTok-video maakt van haar koffieroutine waarin ze Lumina Roasters uitgebreid prijst. Ook deelt ze haar persoonlijke kortingscode met haar zus, zodat zij de machine ook met korting kan bestellen.
+
+          </p>
+
+        </div>
+
+
+
+        <!-- Optional Helper Panel -->
+
+        <div class="space-y-4">
+
+          <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-sm space-y-4">
+
+            <h3 class="text-base font-bold flex items-center gap-2 text-sky-400">
+
+              <span>🔍</span> Zelf-Analyse Tool (Optioneel)
+
+            </h3>
+
+            <p class="text-xs text-slate-300 leading-relaxed">
+
+              Vind je het lastig om een "schone" tekst te lezen? Gebruik de knoppen hieronder om te zien of je de theorie in de tekst juist hebt herkend!
+
+            </p>
+
+            <div class="flex flex-col gap-2">
+
+              <button onclick="toggleHighlight('tp')" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-semibold text-left border border-slate-700 text-yellow-300 transition">
+
+                🟨 Toon/Verberg Touchpoints
+
+              </button>
+
+              <button onclick="toggleHighlight('fn')" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-semibold text-left border border-slate-700 text-blue-300 transition">
+
+                🟦 Toon/Verberg Functionele Beleving
+
+              </button>
+
+              <button onclick="toggleHighlight('em')" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-semibold text-left border border-slate-700 text-green-300 transition">
+
+                🟩 Toon/Verberg Emotionele Beleving (9+)
+
+              </button>
+
+              <button onclick="toggleHighlight('sr')" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-semibold text-left border border-slate-700 text-purple-300 transition">
+
+                🟪 Toon/Verberg Service-fase
+
+              </button>
+
+              <button onclick="toggleHighlight('am')" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-semibold text-left border border-slate-700 text-pink-300 transition">
+
+                🟥 Toon/Verberg Ambassadeursfase
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="bg-sky-50 border border-sky-200 rounded-2xl p-5 space-y-2">
+
+            <h4 class="text-xs font-bold text-sky-900 uppercase tracking-wider">💡 Tip van de docent</h4>
+
+            <p class="text-xs text-sky-800 leading-relaxed">
+
+              Zet niet zomaar losse steekwoorden neer op je toets. Gebruik altijd een <strong>volledige zin</strong> waarin je het theoriebegrip direct koppelt aan de naam van de klant (Sarah) of het bedrijf (Lumina).
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- TAB 2: OPEN TOETSVORAGEN & AUTOMATISCHE CHECKER -->
+
+    <section id="tab-studio" class="space-y-8 hidden">
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+
+        <div>
+
+          <span class="text-xs font-bold uppercase text-sky-600 tracking-wider">Actieve Examentrainer</span>
+
+          <h2 class="text-2xl font-extrabold text-slate-900 mt-0.5">Open Vragen Studio</h2>
+
+          <p class="text-xs text-slate-500 mt-1">Typ je antwoord in. Onze nakijk-bot scant jouw tekst direct op de juiste inhoud, theorie en voorbeelden uit de casus!</p>
+
+        </div>
+
+
+
+        <div class="bg-slate-900 text-white px-6 py-4 rounded-2xl flex items-center space-x-6 min-w-[280px] shadow-md">
+
+          <div class="text-center">
+
+            <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Jouw Score</span>
+
+            <span id="total-score-display" class="text-3xl font-extrabold text-sky-400">0 / 14</span>
+
+          </div>
+
+          <div class="h-10 w-px bg-slate-700"></div>
+
+          <div>
+
+            <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Cijfer Indicatie</span>
+
+            <span id="grade-display" class="text-2xl font-black text-white">1.0</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- QUESTION 1 -->
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-4">
+
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+
+          <span class="text-xs font-extrabold uppercase tracking-wider text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">Vraag 1 • Touchpoints (3 Punten)</span>
+
+          <span class="text-xs font-medium text-slate-400">Max: 3 pt</span>
+
+        </div>
+
+        <p class="text-sm font-bold text-slate-800 leading-snug">
+
+          Haal uit alinea 2 van de casus minimaal drie verschillende concrete <em>touchpoints</em> tussen Sarah en de koffiemarkt/Lumina.
+
+        </p>
+
+        <textarea id="ans-1" rows="3" class="w-full p-4 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition shadow-inner" placeholder="Jouw antwoord (bijv. 1. Touchpoint X, 2. ...)"></textarea>
+
+       
+
+        <div class="flex flex-wrap items-center gap-3">
+
+          <button onclick="checkAnswer(1)" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-2">
+
+            <span>🤖</span> Controleer mijn antwoord
+
+          </button>
+
+          <button onclick="toggleModel(1)" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
+
+            👁️ Toon Modelantwoord
+
+          </button>
+
+        </div>
+
+
+
+        <div id="feedback-1" class="hidden text-xs space-y-2"></div>
+
+        <div id="model-1" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-2 text-slate-700">
+
+          <p class="font-bold text-slate-900 uppercase tracking-wider">Officieel Correctievoorschrift (1 pt per touchpoint, max 3):</p>
+
+          <ul class="list-disc pl-5 space-y-1">
+
+            <li><strong>Google:</strong> Ze zoekt via een zoekmachine.</li>
+
+            <li><strong>Reddit:</strong> Ze leest discussies op het forum.</li>
+
+            <li><strong>Instagram-advertentie:</strong> Ze ziet een ad van Lumina.</li>
+
+            <li><strong>Website / Koffiesmaak-quiz:</strong> Ze vult de test in op hun site.</li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- QUESTION 2 -->
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-4">
+
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+
+          <span class="text-xs font-extrabold uppercase tracking-wider text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">Vraag 2 • Klantbeleving & 9+ (4 Punten)</span>
+
+          <span class="text-xs font-medium text-slate-400">Max: 4 pt</span>
+
+        </div>
+
+        <p class="text-sm font-bold text-slate-800 leading-snug">
+
+          Sarah ervaart een duidelijke '9+-klantbeleving'. Leg uit welke <strong>twee soorten beleving</strong> hierbij horen en koppel <strong>beide</strong> aan een voorbeeld uit de tekst.
+
+        </p>
+
+        <textarea id="ans-2" rows="4" class="w-full p-4 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition shadow-inner" placeholder="Typ eerst je uitleg over de functionele beleving, daarna de emotionele..."></textarea>
+
+       
+
+        <div class="flex flex-wrap items-center gap-3">
+
+          <button onclick="checkAnswer(2)" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-2">
+
+            <span>🤖</span> Controleer mijn antwoord
+
+          </button>
+
+          <button onclick="toggleModel(2)" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
+
+            👁️ Toon Modelantwoord
+
+          </button>
+
+        </div>
+
+
+
+        <div id="feedback-2" class="hidden text-xs space-y-2"></div>
+
+        <div id="model-2" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-2 text-slate-700">
+
+          <p class="font-bold text-slate-900 uppercase tracking-wider">Officieel Correctievoorschrift (4 Punten totaal):</p>
+
+          <ol class="list-decimal pl-5 space-y-1">
+
+            <li><strong>Functioneel (1pt):</strong> Voldoet aan de basisverwachting (apparaat doet het).</li>
+
+            <li><strong>Voorbeeld Functioneel (1pt):</strong> De snelle bezorging binnen 2 dagen óf het feit dat de koffie heet/sterk is.</li>
+
+            <li><strong>Emotioneel (1pt):</strong> Bedrijf zorgt voor een verrassing / overtreft verwachting.</li>
+
+            <li><strong>Voorbeeld Emotioneel (1pt):</strong> De gepersonaliseerde mok, het gratis proefzakje bonen of het handgeschreven welkomstkaartje.</li>
+
+          </ol>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- QUESTION 3 -->
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-4">
+
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+
+          <span class="text-xs font-extrabold uppercase tracking-wider text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">Vraag 3 • Fasen van de Klantreis (3 Punten)</span>
+
+          <span class="text-xs font-medium text-slate-400">Max: 3 pt</span>
+
+        </div>
+
+        <p class="text-sm font-bold text-slate-800 leading-snug">
+
+          A) Welke acties van Sarah vallen onder de <strong>'Ambassadeursfase'</strong>?<br>
+
+          B) Leg uit wat het grote verschil is qua <strong>initiatiefnemer</strong> tussen het sturen van de e-mail (Service) en de acties van Sarah (Ambassadeur).
+
+        </p>
+
+        <textarea id="ans-3" rows="4" class="w-full p-4 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition shadow-inner" placeholder="Jouw antwoord op A en B..."></textarea>
+
+       
+
+        <div class="flex flex-wrap items-center gap-3">
+
+          <button onclick="checkAnswer(3)" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-2">
+
+            <span>🤖</span> Controleer mijn antwoord
+
+          </button>
+
+          <button onclick="toggleModel(3)" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
+
+            👁️ Toon Modelantwoord
+
+          </button>
+
+        </div>
+
+
+
+        <div id="feedback-3" class="hidden text-xs space-y-2"></div>
+
+        <div id="model-3" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-2 text-slate-700">
+
+          <p class="font-bold text-slate-900 uppercase tracking-wider">Officieel Correctievoorschrift (3 Punten totaal):</p>
+
+          <ul class="list-disc pl-5 space-y-1">
+
+            <li><strong>Acties Ambassadeur (1pt):</strong> Ze maakt een TikTok-video met lof over het merk en ze geeft een kortingscode door aan haar zus.</li>
+
+            <li><strong>Verschil initiatiefnemer (2pt):</strong> Bij de Service-fase neemt het <strong>BEDRIJF</strong> het initiatief door een nazorg-mail te sturen. Bij de Ambassadeursfase neemt de <strong>KLANT</strong> uit eigen beweging het initiatief om anderen te overtuigen.</li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- QUESTION 4 -->
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-4">
+
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+
+          <span class="text-xs font-extrabold uppercase tracking-wider text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">Vraag 4 • Buyer Persona (4 Punten)</span>
+
+          <span class="text-xs font-medium text-slate-400">Max: 4 pt</span>
+
+        </div>
+
+        <p class="text-sm font-bold text-slate-800 leading-snug">
+
+          Stel op basis van de tekst een logische <em>Buyer Persona</em> op voor Lumina. Geef minimaal **vier specifieke kenmerken** (bijv. demografie, beroep, mediagebruik, pijnpunt/probleem).
+
+        </p>
+
+        <textarea id="ans-4" rows="4" class="w-full p-4 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition shadow-inner" placeholder="Naam/Leeftijd: ..., Beroep/Situatie: ..., Mediagebruik: ..., Probleem/Wens: ..."></textarea>
+
+       
+
+        <div class="flex flex-wrap items-center gap-3">
+
+          <button onclick="checkAnswer(4)" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-2">
+
+            <span>🤖</span> Controleer mijn antwoord
+
+          </button>
+
+          <button onclick="toggleModel(4)" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
+
+            👁️ Toon Modelantwoord
+
+          </button>
+
+        </div>
+
+
+
+        <div id="feedback-4" class="hidden text-xs space-y-2"></div>
+
+        <div id="model-4" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-2 text-slate-700">
+
+          <p class="font-bold text-slate-900 uppercase tracking-wider">Officieel Correctievoorschrift (1 pt per kenmerk, max 4):</p>
+
+          <ul class="list-disc pl-5 space-y-1">
+
+            <li><strong>Demografie:</strong> Vrouwelijke dertiger (Sarah, 32 jaar).</li>
+
+            <li><strong>Situatie/Beroep:</strong> Grafisch vormgever die veel vanuit huis werkt.</li>
+
+            <li><strong>Mediagebruik:</strong> Actief op Google, Reddit (leest fora), Instagram en TikTok.</li>
+
+            <li><strong>Pijnpunt/Wens:</strong> Heeft een hekel aan slechte/waterige oploskoffie en wil thuis dezelfde kwaliteit ervaren als in een espressobar.</li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- TAB 3: CUSTOMER JOURNEY MATRIX -->
+
+    <section id="tab-journey" class="space-y-6 hidden">
+
+      <div class="bg-sky-50 border border-sky-200 rounded-2xl p-6">
+
+        <h2 class="text-xl font-bold text-sky-900 flex items-center gap-2">
+
+          <span>🗺️</span> De 5 Fasen van de Klantreis (Lumina)
+
+        </h2>
+
+      </div>
+
+
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+
+        <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 shadow-sm">
+
+          <span class="text-[10px] font-extrabold uppercase text-sky-600 bg-sky-50 px-2 py-0.5 rounded">Fase 1</span>
+
+          <h3 class="font-bold text-slate-800 text-sm">Bewustwording</h3>
+
+          <p class="text-xs text-slate-600">Sarah baalt van vieze oploskoffie en beseft dat ze een machine nodig heeft.</p>
+
+          <div class="pt-2 border-t border-slate-100 text-[11px]"><span class="text-slate-400">Initiatief:</span> <span class="font-bold text-blue-600">👤 Klant</span></div>
+
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 shadow-sm">
+
+          <span class="text-[10px] font-extrabold uppercase text-sky-600 bg-sky-50 px-2 py-0.5 rounded">Fase 2</span>
+
+          <h3 class="font-bold text-slate-800 text-sm">Overweging</h3>
+
+          <p class="text-xs text-slate-600">Zoekt op Google, leest Reddit, ziet Insta-ad en doet de quiz.</p>
+
+          <div class="pt-2 border-t border-slate-100 text-[11px]"><span class="text-slate-400">Initiatief:</span> <span class="font-bold text-blue-600">👤 Klant</span></div>
+
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 shadow-sm">
+
+          <span class="text-[10px] font-extrabold uppercase text-sky-600 bg-sky-50 px-2 py-0.5 rounded">Fase 3</span>
+
+          <h3 class="font-bold text-slate-800 text-sm">Aankoop</h3>
+
+          <p class="text-xs text-slate-600">Kiest de Lumina Pro Elite en rekent af via Apple Pay.</p>
+
+          <div class="pt-2 border-t border-slate-100 text-[11px]"><span class="text-slate-400">Initiatief:</span> <span class="font-bold text-blue-600">👤 Klant</span></div>
+
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 shadow-sm border-l-4 border-l-purple-500">
+
+          <span class="text-[10px] font-extrabold uppercase text-purple-600 bg-purple-50 px-2 py-0.5 rounded">Fase 4</span>
+
+          <h3 class="font-bold text-slate-800 text-sm">Service</h3>
+
+          <p class="text-xs text-slate-600">Lumina stuurt uit zichzelf een mail met schoonmaak-video en feedback-vraag.</p>
+
+          <div class="pt-2 border-t border-slate-100 text-[11px]"><span class="text-slate-400">Initiatief:</span> <span class="font-bold text-purple-700">🏢 Bedrijf</span></div>
+
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 shadow-sm border-l-4 border-l-pink-500">
+
+          <span class="text-[10px] font-extrabold uppercase text-pink-600 bg-pink-50 px-2 py-0.5 rounded">Fase 5</span>
+
+          <h3 class="font-bold text-slate-800 text-sm">Ambassadeur</h3>
+
+          <p class="text-xs text-slate-600">Sarah maakt spontaan een TikTok en deelt een referral code met haar zus.</p>
+
+          <div class="pt-2 border-t border-slate-100 text-[11px]"><span class="text-slate-400">Initiatief:</span> <span class="font-bold text-pink-600">👤 Klant</span></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- TAB 4: PERSONA BUILDER -->
+
+    <section id="tab-persona" class="space-y-6 hidden">
+
+      <div class="bg-sky-50 border border-sky-200 rounded-2xl p-6">
+
+        <h2 class="text-xl font-bold text-sky-900">👤 Persona Builder & 9+-Klantbeleving</h2>
+
+      </div>
+
+
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+
+          <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-2"> Doelgroep vs. Buyer Persona</h3>
+
+          <div class="space-y-3 text-xs">
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+
+              <span class="font-bold text-slate-800 block">Doelgroep (Algemeen):</span>
+
+              <p class="text-slate-600">"Thuiswerkende professionals tussen 25 en 45 jaar met bovengemiddeld inkomen."</p>
+
+            </div>
+
+            <div class="p-3 bg-sky-50 rounded-xl border border-sky-200">
+
+              <span class="font-bold text-sky-900 block">Buyer Persona (Lumina):</span>
+
+              <p class="text-sky-800">"Sarah, 32 jaar, grafisch ontwerper. Heeft behoefte aan koffie van barista-kwaliteit in huis, beïnvloedbaar door social media (TikTok/Insta)."</p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+
+          <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-2">⭐ Lumina's 9+-Beleving</h3>
+
+          <div class="space-y-3 text-xs">
+
+            <div class="flex items-start gap-3 p-3 bg-blue-50 rounded-xl border border-blue-200">
+
+              <span class="text-lg">🟦</span>
+
+              <div>
+
+                <span class="font-bold text-blue-900">1. Functioneel (De Basis)</span>
+
+                <p class="text-blue-800">Machine levert hete en sterke koffie, geleverd binnen 2 dagen.</p>
+
+              </div>
+
+            </div>
+
+            <div class="flex items-start gap-3 p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+
+              <span class="text-lg">🟩</span>
+
+              <div>
+
+                <span class="font-bold text-emerald-900">2. Emotioneel (De Verrassing)</span>
+
+                <p class="text-emerald-800">Gegraveerde mok met naam, dure bonen uit Costa Rica, handgeschreven kaartje.</p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- TAB 5: ANALYTICS -->
+
+    <section id="tab-dashboard" class="space-y-6 hidden">
+
+      <div class="bg-sky-50 border border-sky-200 rounded-2xl p-6">
+
+        <h2 class="text-xl font-bold text-sky-900">📊 Lumina Touchpoint Analytics</h2>
+
+      </div>
+
+
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+
+          <h3 class="text-sm font-bold text-slate-800 text-center">Touchpoints Per Fase</h3>
+
+          <div class="chart-container"><canvas id="touchpointChart"></canvas></div>
+
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+
+          <h3 class="text-sm font-bold text-slate-800 text-center">Lumina's 9+ Ervaring Score</h3>
+
+          <div class="chart-container"><canvas id="radarBelevingChart"></canvas></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+  </main>
+
+
+
+  <script>
+
+    function checkAccess() {
+
+      const codeInput = document.getElementById('access-code');
+
+      const errorMsg = document.getElementById('lock-error');
+
+      const lockScreen = document.getElementById('lock-screen');
+
+      const lockModal = document.getElementById('lock-modal');
+
+
+
+      if (codeInput.value === '1234') {
+
+        // Succes animatie
+
+        lockModal.classList.add('scale-95', 'opacity-0');
+
+        lockScreen.classList.add('opacity-0', 'pointer-events-none');
+
+        setTimeout(() => lockScreen.remove(), 500); // Verwijder compleet na fade-out
+
+      } else {
+
+        // Fout animatie (schudden)
+
+        errorMsg.classList.remove('opacity-0');
+
+        lockModal.classList.add('animate-bounce');
+
+        codeInput.value = '';
+
+       
+
+        setTimeout(() => {
+
+          lockModal.classList.remove('animate-bounce');
+
+        }, 500);
+
+
+
+        setTimeout(() => {
+
+          errorMsg.classList.add('opacity-0');
+
+        }, 2500);
+
+      }
+
+    }
+
+
+
+    // Zorg ervoor dat 'Enter' ook werkt om in te loggen
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const codeInput = document.getElementById('access-code');
+
+      if (codeInput) {
+
+        codeInput.addEventListener('keypress', function (e) {
+
+          if (e.key === 'Enter') {
+
+            checkAccess();
+
+          }
+
+        });
+
+      }
+
+    });
+
+
+
+    function switchTab(tabId) {
+
+      const tabs = ['casus', 'studio', 'journey', 'persona', 'dashboard'];
+
+      tabs.forEach(t => {
+
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+
+        document.getElementById(`nav-${t}`).classList.remove('tab-active');
+
+      });
+
+      document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+      document.getElementById(`nav-${tabId}`).classList.add('tab-active');
+
+      if (tabId === 'dashboard') renderCharts();
+
+    }
+
+
+
+    const highlightState = { tp: false, fn: false, em: false, sr: false, am: false };
+
+
+
+    function toggleHighlight(type) {
+
+      highlightState[type] = !highlightState[type];
+
+      if (type === 'tp') {
+
+        highlightWordsInPara('story-p2', ['Google', 'Reddit', 'Instagram-advertentie', 'website', 'koffiesmaak-quiz'], 'highlight-active-tp', highlightState.tp);
+
+      } else if (type === 'fn') {
+
+        highlightWordsInPara('story-p4', ['binnen twee werkdagen', 'stevig ingepakt', 'hete, sterke koffie'], 'highlight-active-fn', highlightState.fn);
+
+      } else if (type === 'em') {
+
+        highlightWordsInPara('story-p4', ['extra pakketje', 'keramische koffiemok', 'voornaam in is gegraveerd', 'gratis proefzakje', 'handgeschreven kaartje'], 'highlight-active-em', highlightState.em);
+
+      } else if (type === 'sr') {
+
+        highlightWordsInPara('story-p5', ['automatische e-mail', 'video over hoe ze het stoompijpje het beste kan schoonmaken', 'vraag of de machine bevalt'], 'highlight-active-sr', highlightState.sr);
+
+      } else if (type === 'am') {
+
+        highlightWordsInPara('story-p5', ['TikTok-video', 'Lumina Roasters uitgebreid prijst', 'kortingscode met haar zus'], 'highlight-active-am', highlightState.am);
+
+      }
+
+    }
+
+
+
+    function highlightWordsInPara(paraId, textList, className, apply) {
+
+      const p = document.getElementById(paraId);
+
+      let html = p.innerHTML;
+
+      textList.forEach(text => {
+
+        if (apply) {
+
+          const re = new RegExp(`(${text})`, 'gi');
+
+          html = html.replace(re, `<span class="${className}">0.87 EUR</span>`);
+
+        } else {
+
+          const re = new RegExp(`<span class="${className}">(${text})<\/span>`, 'gi');
+
+          html = html.replace(re, '0.87 EUR');
+
+        }
+
+      });
+
+      p.innerHTML = html;
+
+    }
+
+
+
+    const scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
+
+   
+
+    function checkAnswer(qNum) {
+
+      const userText = document.getElementById(`ans-${qNum}`).value.trim().toLowerCase();
+
+      const feedbackDiv = document.getElementById(`feedback-${qNum}`);
+
+      feedbackDiv.classList.remove('hidden');
+
+
+
+      if (userText.length < 8) {
+
+        feedbackDiv.innerHTML = `<div class="p-3 bg-red-50 text-red-700 font-semibold rounded">⚠️ Typ een antwoord in!</div>`;
+
+        return;
+
+      }
+
+
+
+      let score = 0;
+
+      let matched = [];
+
+
+
+      if (qNum === 1) {
+
+        const checks = [
+
+          { key: ['google', 'zoekmachine'], name: 'Google' },
+
+          { key: ['reddit', 'forum', 'discussies'], name: 'Reddit' },
+
+          { key: ['instagram', 'advertentie', 'ad'], name: 'Instagram ad' },
+
+          { key: ['quiz', 'website', 'test'], name: 'Website Quiz' }
+
+        ];
+
+        checks.forEach(c => { if(c.key.some(k => userText.includes(k))) matched.push(c.name); });
+
+        score = Math.min(matched.length, 3);
+
+      } else if (qNum === 2) {
+
+        if (userText.includes('functioneel') || userText.includes('basis') || userText.includes('verwachting')) { matched.push('Functionele theorie'); score++; }
+
+        if (userText.includes('snel') || userText.includes('bezorging') || userText.includes('heet') || userText.includes('koffie')) { matched.push('Functioneel voorbeeld'); score++; }
+
+        if (userText.includes('emotioneel') || userText.includes('verrassing') || userText.includes('gevoel')) { matched.push('Emotionele theorie'); score++; }
+
+        if (userText.includes('mok') || userText.includes('gegraveerd') || userText.includes('kaartje') || userText.includes('bonen')) { matched.push('Emotioneel voorbeeld'); score++; }
+
+      } else if (qNum === 3) {
+
+        if (userText.includes('tiktok') || userText.includes('kortingscode') || userText.includes('zus')) { matched.push('Ambassadeur acties'); score += 1; }
+
+        if ((userText.includes('bedrijf') && userText.includes('klant')) || userText.includes('initiatief')) { matched.push('Verschil in initiatiefnemer'); score += 2; }
+
+      } else if (qNum === 4) {
+
+        if (userText.includes('sarah') || userText.includes('32') || userText.includes('vrouw')) { matched.push('Demografie'); score++; }
+
+        if (userText.includes('thuis') || userText.includes('grafisch') || userText.includes('werk')) { matched.push('Beroep/Situatie'); score++; }
+
+        if (userText.includes('reddit') || userText.includes('tiktok') || userText.includes('instagram') || userText.includes('google')) { matched.push('Mediagebruik'); score++; }
+
+        if (userText.includes('oploskoffie') || userText.includes('waterig') || userText.includes('luxe koffie')) { matched.push('Probleem/Wens'); score++; }
+
+      }
+
+
+
+      scores[qNum] = score;
+
+      const isPerfect = score >= [0,3,4,3,4][qNum];
+
+     
+
+      feedbackDiv.innerHTML = `
+
+        <div class="p-4 rounded-xl ${isPerfect ? 'bg-emerald-50 text-emerald-900 border border-emerald-200' : 'bg-yellow-50 text-yellow-900 border border-yellow-200'}">
+
+          <div class="font-bold">🤖 Score: ${score} punten.</div>
+
+          <p class="text-xs mt-1">Herkend: ${matched.length ? matched.join(', ') : 'Niets relevants'}.</p>
+
+        </div>
+
+      `;
+
+      updateOverallScore();
+
+    }
+
+
+
+    function toggleModel(qNum) {
+
+      document.getElementById(`model-${qNum}`).classList.toggle('hidden');
+
+    }
+
+
+
+    function updateOverallScore() {
+
+      const total = Object.values(scores).reduce((a,b)=>a+b, 0);
+
+      document.getElementById('total-score-display').innerText = `${total} / 14`;
+
+      document.getElementById('grade-display').innerText = ((total / 14) * 9 + 1).toFixed(1);
+
+    }
+
+
+
+    let chartsRendered = false;
+
+    function renderCharts() {
+
+      if (chartsRendered) return;
+
+      chartsRendered = true;
+
+      new Chart(document.getElementById('touchpointChart'), {
+
+        type: 'bar',
+
+        data: {
+
+          labels: ['Bewustwording', 'Overweging', 'Aankoop', 'Service', 'Ambassadeur'],
+
+          datasets: [{ data: [1, 4, 1, 1, 2], backgroundColor: '#38bdf8' }]
+
+        },
+
+        options: { plugins: { legend: { display: false } }, responsive: true, maintainAspectRatio: false }
+
+      });
+
+      new Chart(document.getElementById('radarBelevingChart'), {
+
+        type: 'radar',
+
+        data: {
+
+          labels: ['Snelheid', 'Kwaliteit Koffie', 'Apparaat', 'Persoonlijk', 'Verrassing', 'Nazorg'],
+
+          datasets: [
+
+            { label: 'Standaard Verwachting', data: [7, 8, 8, 2, 1, 3], borderColor: '#cbd5e1' },
+
+            { label: 'Lumina 9+', data: [9, 10, 9, 10, 10, 9], borderColor: '#0284c7', backgroundColor: 'rgba(2,132,199,0.2)' }
+
+          ]
+
+        },
+
+        options: { responsive: true, maintainAspectRatio: false, scales: { r: { min: 0, max: 10 } } }
+
+      });
+
+    }
+
+  </script>
+
+</body>
+
+</html> 
+
