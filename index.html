@@ -141,18 +141,31 @@
 
         <div class="card" style="margin-top: 1.5rem;">
           <form id="examForm">
+            <h3 style="margin-bottom: 0.75rem; font-size: 1rem; color: var(--text);">1. Klik op een vak:</h3>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+              <button type="button" class="btn-primary sub-btn" style="background:#1e293b; padding: 0.5rem 1rem;" onclick="selectSubject(this, 'Wiskunde')">📐 Wiskunde</button>
+              <button type="button" class="btn-primary sub-btn" style="background:#1e293b; padding: 0.5rem 1rem;" onclick="selectSubject(this, 'Natuurwetenschappen')">🧬 NW</button>
+              <button type="button" class="btn-primary sub-btn" style="background:#1e293b; padding: 0.5rem 1rem;" onclick="selectSubject(this, 'Engels')">🇬🇧 Engels</button>
+              <button type="button" class="btn-primary sub-btn" style="background:#1e293b; padding: 0.5rem 1rem;" onclick="selectSubject(this, 'Nederlands')">📚 Nederlands</button>
+              <button type="button" class="btn-primary sub-btn" style="background:#1e293b; padding: 0.5rem 1rem;" onclick="selectSubject(this, 'Boekhouding')">📊 Boekhouding</button>
+              <button type="button" class="btn-primary sub-btn" style="background:#1e293b; padding: 0.5rem 1rem;" onclick="selectSubject(this, 'Economie')">💶 Economie</button>
+              <button type="button" class="btn-primary sub-btn" style="background:#1e293b; padding: 0.5rem 1rem;" onclick="selectSubject(this, 'Marketing')">📈 Marketing</button>
+            </div>
+            
+            <!-- Dit onzichtbare veld onthoudt welk vak je hebt aangeklikt -->
+            <input type="hidden" id="examSubject" />
+
+            <h3 style="margin-bottom: 0.75rem; font-size: 1rem; color: var(--text);">2. Kies datum en weging:</h3>
             <div class="form-grid">
               <input type="text" id="examSubject" placeholder="Vak..." required />
               <input type="datetime-local" id="examDate" required />
               <input type="text" id="examWeight" placeholder="Type / Weging (bijv. 30%)" />
             </div>
-            <button type="submit" class="btn-primary" style="margin-top: 1rem;">+ Examen Toevoegen</button>
+            <button type="submit" class="btn-primary" style="margin-top: 1.5rem; width: 100%;">+ Examen Inplannen</button>
           </form>
         </div>
-        <div id="examList" class="exam-list"></div>
-      </section>
 
-      
+
       <!-- SECTIE 3: THEORIE & UITLEG -->
       <section id="tab-leerstof" class="tab-content">
         <h2 class="section-title">Theorie per Vak</h2>
