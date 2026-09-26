@@ -4,26 +4,43 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('landing-page').style.display = 'none';
     document.getElementById('main-dashboard').style.display = 'block';
     switchTab('home'); 
+    
+    // Toon de opgeslagen naam
+    const savedName = localStorage.getItem('ayoub_user_name') || 'Student';
+    document.getElementById('welcome-text').innerHTML = `Welkom terug, <span class="accent">${savedName}</span>!`;
   }
 });
 
-// 2. Wachtwoord check (Mét automatische onthoud-functie)
+// 2. Wachtwoord check & Naam opslaan
 function checkAccess() {
+  const nameInput = document.getElementById('userName').value.trim();
   const codeInput = document.getElementById('accessCode').value;
   const errorMsg = document.getElementById('errorMsg');
 
+  if (nameInput === "") {
+    errorMsg.innerText = "⚠️ Vul eerst je naam in!";
+    errorMsg.style.display = 'block';
+    return;
+  }
+
   if (codeInput === "Examenhulp23") {
     errorMsg.style.display = 'none';
+    
     localStorage.setItem('ayoub_ingelogd', 'true');
+    localStorage.setItem('ayoub_user_name', nameInput);
+    
+    document.getElementById('welcome-text').innerHTML = `Welkom, <span class="accent">${nameInput}</span>!`;
+    
     document.getElementById('landing-page').style.display = 'none';
     document.getElementById('main-dashboard').style.display = 'block';
     switchTab('home');
   } else {
+    errorMsg.innerText = "❌ Verkeerde toegangscode!";
     errorMsg.style.display = 'block';
   }
 }
 
-// 3. De onbreekbare tab-wisselaar
+// 3. Tab-wisselaar
 function switchTab(tabId) {
   const allSections = document.querySelectorAll('.tab-content');
   allSections.forEach(sec => {
@@ -49,13 +66,13 @@ function switchTab(tabId) {
   window.scrollTo(0, 0);
 }
 
-// 4. Doorklikken naar theorie (Gesplitste UI)
+// 4. Doorklikken naar theorie
 function openTheory(subjectKey) {
   switchTab('leerstof');
   showSubjectTheory(subjectKey);
 }
 
-// 5. Doorklikken naar toetsen (Gesplitste UI)
+// 5. Doorklikken naar toetsen
 function openTests(subjectKey) {
   switchTab('toetsen');
   showSubjectTests(subjectKey);
@@ -67,7 +84,6 @@ function showSubjectTheory(subjectKey) {
   blocks.forEach(block => {
     block.style.display = 'none';
   });
-
   const selected = document.getElementById('theory-' + subjectKey);
   if (selected) {
     selected.style.display = 'block';
@@ -80,7 +96,6 @@ function showSubjectTests(subjectKey) {
   blocks.forEach(block => {
     block.style.display = 'none';
   });
-
   const selected = document.getElementById('test-' + subjectKey);
   if (selected) {
     selected.style.display = 'block';
@@ -93,7 +108,6 @@ function showChapter(subject, chapterNum) {
   chapters.forEach(ch => {
     ch.style.display = 'none';
   });
-
   const selectedChapter = document.getElementById(`${subject}-h${chapterNum}`);
   if (selectedChapter) {
     selectedChapter.style.display = 'block';
@@ -121,12 +135,14 @@ function renderExams() {
     item.className = 'card';
     item.style.display = 'flex';
     item.style.justifyContent = 'space-between';
+    item.style.alignItems = 'center';
+    item.style.marginBottom = '1rem';
     item.innerHTML = `
       <div>
-        <strong>${ex.subject}</strong> - <span>${new Date(ex.date).toLocaleString('nl-BE')}</span>
-        <small style="color: var(--text-muted); display: block;">${ex.weight || ''}</small>
+        <strong>${ex.subject}</strong> - <span style="color: var(--text-muted);">${new Date(ex.date).toLocaleString('nl-BE')}</span>
+        <small style="color: var(--accent); display: block; font-weight: bold;">${ex.weight || ''}</small>
       </div>
-      <button onclick="deleteExam(${i})" style="background:none; border:none; color:#ef4444; cursor:pointer;">Verwijderen</button>
+      <button onclick="deleteExam(${i})" style="background:rgba(239, 68, 68, 0.2); border:1px solid #ef4444; color:#ef4444; padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer;">Verwijderen</button>
     `;
     examList.appendChild(item);
   });
@@ -138,7 +154,6 @@ function deleteExam(index) {
   renderExams();
 }
 
-// Functie om de knoppen blauw te maken bij het aanklikken
 function selectSubject(clickedBtn, subjectName) {
   const buttons = document.querySelectorAll('.sub-btn');
   buttons.forEach(btn => {
