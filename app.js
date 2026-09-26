@@ -1,6 +1,5 @@
 // 1. Zorg dat de browser onthoudt of je al bent ingelogd
 document.addEventListener("DOMContentLoaded", () => {
-  // Als de browser de 'sleutel' herkent, sla dan de login over!
   if (localStorage.getItem('ayoub_ingelogd') === 'true') {
     document.getElementById('landing-page').style.display = 'none';
     document.getElementById('main-dashboard').style.display = 'block';
@@ -8,17 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// 2. Wachtwoord check (Nu mét automatische onthoud-functie)
+// 2. Wachtwoord check (Mét automatische onthoud-functie)
 function checkAccess() {
   const codeInput = document.getElementById('accessCode').value;
   const errorMsg = document.getElementById('errorMsg');
 
   if (codeInput === "Examenhulp23") {
     errorMsg.style.display = 'none';
-    
-    // 🔥 SLA OP IN DE BROWSER DAT DE CODE GOED WAS 🔥
     localStorage.setItem('ayoub_ingelogd', 'true');
-    
     document.getElementById('landing-page').style.display = 'none';
     document.getElementById('main-dashboard').style.display = 'block';
     switchTab('home');
@@ -53,13 +49,19 @@ function switchTab(tabId) {
   window.scrollTo(0, 0);
 }
 
-// 4. Doorklikken naar specifiek vak
-function openSubject(subjectKey) {
+// 4. Doorklikken naar theorie (Gesplitste UI)
+function openTheory(subjectKey) {
   switchTab('leerstof');
   showSubjectTheory(subjectKey);
 }
 
-// 5. Toon theorie per vak
+// 5. Doorklikken naar toetsen (Gesplitste UI)
+function openTests(subjectKey) {
+  switchTab('toetsen');
+  showSubjectTests(subjectKey);
+}
+
+// 6. Toon theorie per vak
 function showSubjectTheory(subjectKey) {
   const blocks = document.querySelectorAll('.theory-block');
   blocks.forEach(block => {
@@ -72,7 +74,20 @@ function showSubjectTheory(subjectKey) {
   }
 }
 
-// 6. Toon specifiek hoofdstuk binnen theorie
+// 7. Toon toetsen per vak
+function showSubjectTests(subjectKey) {
+  const blocks = document.querySelectorAll('.test-block');
+  blocks.forEach(block => {
+    block.style.display = 'none';
+  });
+
+  const selected = document.getElementById('test-' + subjectKey);
+  if (selected) {
+    selected.style.display = 'block';
+  }
+}
+
+// 8. Toon specifiek hoofdstuk binnen theorie
 function showChapter(subject, chapterNum) {
   const chapters = document.querySelectorAll(`.${subject}-chapter`);
   chapters.forEach(ch => {
@@ -85,7 +100,9 @@ function showChapter(subject, chapterNum) {
   }
 }
 
-// 7. Examenrooster opslag (LocalStorage)
+// ==========================================
+// 9. EXAMENROOSTER (Met klikbare knoppen)
+// ==========================================
 let exams = JSON.parse(localStorage.getItem('ayoub_exams') || '[]');
 const examForm = document.getElementById('examForm');
 const examList = document.getElementById('examList');
@@ -121,44 +138,61 @@ function deleteExam(index) {
   renderExams();
 }
 
+// Functie om de knoppen blauw te maken bij het aanklikken
+function selectSubject(clickedBtn, subjectName) {
+  const buttons = document.querySelectorAll('.sub-btn');
+  buttons.forEach(btn => {
+    btn.style.background = '#1e293b';
+  });
+  
+  clickedBtn.style.background = '#0284c7';
+  document.getElementById('examSubject').value = subjectName;
+}
+
 if (examForm) {
   examForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    const subjectVal = document.getElementById('examSubject').value;
+    
+    if (!subjectVal) {
+      alert("⚠️ Klik eerst op een vak (de blauwe knoppen) voordat je opslaat!");
+      return;
+    }
+
     exams.push({
-      subject: document.getElementById('examSubject').value,
+      subject: subjectVal,
       date: document.getElementById('examDate').value,
       weight: document.getElementById('examWeight').value
     });
     localStorage.setItem('ayoub_exams', JSON.stringify(exams));
+    
     examForm.reset();
+    document.getElementById('examSubject').value = '';
+    document.querySelectorAll('.sub-btn').forEach(btn => btn.style.background = '#1e293b');
+    
     renderExams();
   });
 }
 
 renderExams();
 
-
-// 8. AI Studiecoach Logica
+// ==========================================
+// 10. AI STUDIECOACH
+// ==========================================
 function generateAIAdvice() {
   const adviceBox = document.getElementById('ai-advice-box');
   const adviceText = document.getElementById('ai-advice-text');
   
-  // Toon het vak en zet de laad-animatie aan
   adviceBox.style.display = 'block';
   adviceText.innerHTML = "<em>De AI is je rooster en deadlines aan het analyseren... ⏳</em>";
 
-  // Wacht 1.5 seconde (voor het professionele "denk" effect)
   setTimeout(() => {
-    // Check of er wel examens zijn ingepland
     if (!exams || exams.length === 0) {
       adviceText.innerHTML = "Je hebt nog geen examens ingepland. Voeg er eerst een paar toe hieronder, dan maak ik een waterdichte planning voor je!";
       return;
     }
 
-    // Sorteer de examens zodat degene die als eerste komt bovenaan staat
     const sortedExams = [...exams].sort((a, b) => new Date(a.date) - new Date(b.date));
-    
-    // Filter examens in het verleden eruit
     const futureExams = sortedExams.filter(ex => new Date(ex.date) >= new Date(new Date().setHours(0,0,0,0)));
     
     if (futureExams.length === 0) {
@@ -166,13 +200,9 @@ function generateAIAdvice() {
       return;
     }
 
-    // Pak het eerstvolgende examen
     const nextExam = futureExams[0];
-    
-    // Bereken hoeveel dagen het nog duurt
     const daysLeft = Math.ceil((new Date(nextExam.date) - new Date()) / (1000 * 60 * 60 * 24));
     
-    // AI geeft antwoord op basis van de tijd die nog over is
     if (daysLeft === 0) {
       adviceText.innerHTML = `🚨 <strong>VANDAAG IS HET ZOVER!</strong> Je hebt vandaag examen voor <strong>${nextExam.subject}</strong>. Neem de theorie nog één keer snel door en vertrouw op jezelf. Succes!`;
     } else if (daysLeft <= 3) {
