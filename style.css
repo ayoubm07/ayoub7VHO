@@ -1,32 +1,107 @@
+/* ==========================================
+   BASIS VARIABELEN & KLEUREN
+   ========================================== */
 :root {
-  --bg: #0b0f19;
-  --card-bg: #151d30;
+  --card-bg: #1e293b;
   --text: #f8fafc;
   --text-muted: #94a3b8;
-  --accent: #38bdf8;
-  --accent-hover: #0284c7;
-  --border: #1e293b;
+  --accent: #0284c7;
+  --accent-hover: #0369a1;
+  --border: #334155;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, sans-serif;
 }
 
 body {
-  background-color: var(--bg);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  /* De nieuwe premium achtergrond */
+  background: linear-gradient(135deg, #0f172a 0%, #171033 100%);
+  background-attachment: fixed;
   color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
 }
 
-/* Navigatie */
+/* ==========================================
+   ANIMATIES (Vloeiende overgangen)
+   ========================================== */
+.tab-content {
+  display: none;
+  /* Zorgt ervoor dat pagina's zacht omhoog glijden */
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   INLOGSCHERM (Landing Page)
+   ========================================== */
+#landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.login-box {
+  background: var(--card-bg);
+  padding: 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
+  max-width: 420px;
+  width: 100%;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: #0f172a;
+  color: var(--text);
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.login-box input:focus {
+  border-color: var(--accent);
+}
+
+/* ==========================================
+   NAVIGATIEBALK
+   ========================================== */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: var(--card-bg);
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -34,9 +109,9 @@ body {
 }
 
 .nav-logo {
-  font-size: 1.2rem;
   font-weight: 800;
-  color: var(--accent);
+  font-size: 1.25rem;
+  color: var(--text);
 }
 
 .nav-links {
@@ -45,61 +120,50 @@ body {
 }
 
 .nav-btn {
-  background: transparent;
+  background: none;
   border: none;
   color: var(--text-muted);
   font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
   cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
   transition: all 0.2s;
 }
 
-.nav-btn.active, .nav-btn:hover {
-  background: rgba(56, 189, 248, 0.15);
-  color: var(--accent);
+.nav-btn:hover, .nav-btn.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
 }
 
-/* Layout */
+/* ==========================================
+   DASHBOARD & KAARTEN
+   ========================================== */
 .container {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-.tab-content {
-  display: none;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.tab-content.active {
-  display: flex;
-}
-
-/* Hero */
 .hero {
   text-align: center;
-  padding: 2.5rem 0 1.5rem;
+  padding: 3rem 0 4rem 0;
 }
 
 .badge {
-  background: rgba(56, 189, 248, 0.15);
+  background: rgba(2, 132, 199, 0.2);
   color: var(--accent);
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
+  padding: 0.35rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .hero h1 {
-  font-size: 2.4rem;
-  margin-top: 1rem;
-}
-
-.hero p {
-  color: var(--text-muted);
-  margin-top: 0.5rem;
+  font-size: 2.8rem;
+  margin: 1.5rem 0 1rem 0;
+  line-height: 1.2;
 }
 
 .accent {
@@ -107,169 +171,109 @@ body {
 }
 
 .section-title {
-  font-size: 1.4rem;
-  margin-top: 1rem;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
 }
 
-/* Subject Cards */
 .subject-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
-.subject-card {
+.subject-card, .card {
   background: var(--card-bg);
   border: 1px solid var(--border);
+  border-radius: 1rem;
   padding: 1.5rem;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.2s, border-color 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .subject-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .card-icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .subject-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.3rem;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .subject-card p {
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
-/* Formulier & Kaarten */
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  padding: 1.25rem;
-  border-radius: 10px;
+/* ==========================================
+   KNOPPEN & FORMULIEREN
+   ========================================== */
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
 }
 
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
-@media (max-width: 600px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-input {
-  background: var(--bg);
+input[type="text"], input[type="datetime-local"] {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
   border: 1px solid var(--border);
+  background: #0f172a;
   color: var(--text);
-  padding: 0.75rem;
-  border-radius: 6px;
   outline: none;
+  font-family: inherit;
 }
 
 input:focus {
   border-color: var(--accent);
 }
 
-.btn-primary {
-  background: var(--accent);
-  color: #0b0f19;
-  font-weight: 700;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-}
+/* ==========================================
+   MOBIEL RESPONSIVE (Telefoon weergave)
+   ========================================== */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
-.exam-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-/* Zorg dat tabbladen en theorieblokken standaard onzichtbaar zijn */
-.tab-content {
-  display: none !important;
-}
-
-.tab-content.active {
-  display: block !important;
-}
-
-.theory-block {
-  display: none;
-}
-
-
-/* --- LANDING PAGE STYLES --- */
-.landing-wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: var(--bg);
-}
-.landing-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 1.5rem 5%;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-}
-.landing-login {
-  color: var(--text-muted);
-  font-weight: 700;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-.landing-login:hover {
-  color: var(--accent);
-}
-.landing-hero {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 4rem 2rem;
-}
-.landing-features {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  padding: 4rem 2rem;
-  background: #0f172a; /* Iets donkerdere balk onderaan */
-  flex-wrap: wrap;
-  border-top: 1px solid var(--border);
-}
-.feature-card {
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  width: 300px;
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-.feature-card:hover {
-  transform: translateY(-5px);
-}
-.feature-card h3 {
-  color: var(--accent);
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-}
-.feature-card p {
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.5;
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+  }
 }
