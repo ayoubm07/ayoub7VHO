@@ -136,3 +136,51 @@ if (examForm) {
 }
 
 renderExams();
+
+
+// 8. AI Studiecoach Logica
+function generateAIAdvice() {
+  const adviceBox = document.getElementById('ai-advice-box');
+  const adviceText = document.getElementById('ai-advice-text');
+  
+  // Toon het vak en zet de laad-animatie aan
+  adviceBox.style.display = 'block';
+  adviceText.innerHTML = "<em>De AI is je rooster en deadlines aan het analyseren... ⏳</em>";
+
+  // Wacht 1.5 seconde (voor het professionele "denk" effect)
+  setTimeout(() => {
+    // Check of er wel examens zijn ingepland
+    if (!exams || exams.length === 0) {
+      adviceText.innerHTML = "Je hebt nog geen examens ingepland. Voeg er eerst een paar toe hieronder, dan maak ik een waterdichte planning voor je!";
+      return;
+    }
+
+    // Sorteer de examens zodat degene die als eerste komt bovenaan staat
+    const sortedExams = [...exams].sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    // Filter examens in het verleden eruit
+    const futureExams = sortedExams.filter(ex => new Date(ex.date) >= new Date(new Date().setHours(0,0,0,0)));
+    
+    if (futureExams.length === 0) {
+      adviceText.innerHTML = "Al je ingeplande examens zijn al voorbij! Tijd om je rooster op te schonen en nieuwe doelen te stellen.";
+      return;
+    }
+
+    // Pak het eerstvolgende examen
+    const nextExam = futureExams[0];
+    
+    // Bereken hoeveel dagen het nog duurt
+    const daysLeft = Math.ceil((new Date(nextExam.date) - new Date()) / (1000 * 60 * 60 * 24));
+    
+    // AI geeft antwoord op basis van de tijd die nog over is
+    if (daysLeft === 0) {
+      adviceText.innerHTML = `🚨 <strong>VANDAAG IS HET ZOVER!</strong> Je hebt vandaag examen voor <strong>${nextExam.subject}</strong>. Neem de theorie nog één keer snel door en vertrouw op jezelf. Succes!`;
+    } else if (daysLeft <= 3) {
+      adviceText.innerHTML = `⚠️ <strong>HOGE PRIORITEIT:</strong> Je examen <strong>${nextExam.subject}</strong> is al over ${daysLeft} dagen! Laat andere vakken even liggen. Ga direct naar de proeftoetsen-sectie en blijf oefenen tot je foutloos bent.`;
+    } else if (daysLeft <= 7) {
+      adviceText.innerHTML = `📅 <strong>Aanbevolen:</strong> Je volgende examen is <strong>${nextExam.subject}</strong> over ${daysLeft} dagen. Je hebt nog genoeg tijd, maar dit is het perfecte moment om alvast per hoofdstuk de theorie door te lezen.`;
+    } else {
+      adviceText.innerHTML = `✅ <strong>Je ligt op schema:</strong> Je hebt nog ${daysLeft} dagen de tijd tot <strong>${nextExam.subject}</strong>. Relax, zorg dat je aantekeningen op orde zijn en start pas over een paar dagen met actief leren.`;
+    }
+  }, 1500);
+}

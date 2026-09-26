@@ -124,8 +124,22 @@
 
       <!-- SECTIE 2: EXAMENROOSTER -->
       <section id="tab-examens" class="tab-content">
-        <h2 class="section-title">Ingeplande Examens</h2>
-        <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <h2 class="section-title" style="margin: 0;">Ingeplande Examens</h2>
+          <button onclick="generateAIAdvice()" class="btn-primary" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6); border: none; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);">
+            ✨ Vraag AI Studieadvies
+          </button>
+        </div>
+
+        <!-- AI Output Box -->
+        <div id="ai-advice-box" style="display: none; background: rgba(30, 41, 59, 0.8); border-left: 4px solid #8b5cf6; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; gap: 0.5rem; font-weight: bold; color: #c4b5fd; margin-bottom: 0.5rem; font-size: 1.1rem;">
+            <span>🤖</span> AI Studiecoach:
+          </div>
+          <p id="ai-advice-text" style="font-size: 0.95rem; color: #f1f5f9; margin: 0; line-height: 1.6;"></p>
+        </div>
+
+        <div class="card" style="margin-top: 1.5rem;">
           <form id="examForm">
             <div class="form-grid">
               <input type="text" id="examSubject" placeholder="Vak..." required />
@@ -138,6 +152,7 @@
         <div id="examList" class="exam-list"></div>
       </section>
 
+      
       <!-- SECTIE 3: THEORIE & UITLEG -->
       <section id="tab-leerstof" class="tab-content">
         <h2 class="section-title">Theorie per Vak</h2>
